@@ -1,0 +1,1321 @@
+[
+ {
+  "id": "ragu",
+  "name": "Pasta al ragù",
+  "cat": "primo",
+  "tag": "carne",
+  "abit": true,
+  "min": 15,
+  "cottura": "pentola",
+  "prep": "ragu",
+  "come": "Il ragù si prepara la domenica (un'ora e mezza) in doppia dose; in settimana basta scaldarlo mentre cuoce la pasta.",
+  "ing": [
+   "pasta",
+   "carne macinata",
+   "passata di pomodoro",
+   "cipolla",
+   "carota",
+   "sedano",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "sugo",
+  "name": "Pasta al pomodoro e basilico",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": true,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Aglio in camicia nell'olio, passata o pomodorini 10 minuti, basilico fresco a fuoco spento.",
+  "ing": [
+   "pasta",
+   "passata di pomodoro",
+   "basilico",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "gricia",
+  "name": "Gricia",
+  "cat": "primo",
+  "tag": "salumi",
+  "abit": true,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Guanciale in padella senza olio finché è croccante, poi pecorino, pepe e acqua di cottura.",
+  "ing": [
+   "pasta",
+   "guanciale",
+   "pecorino"
+  ]
+ },
+ {
+  "id": "olioparm",
+  "name": "Pasta olio e parmigiano",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": true,
+  "min": 10,
+  "cottura": "pentola",
+  "come": "Olio extravergine buono, parmigiano abbondante e una macinata di pepe.",
+  "ing": [
+   "pasta",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "amatriciana",
+  "name": "Amatriciana",
+  "cat": "primo",
+  "tag": "salumi",
+  "abit": false,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Guanciale rosolato senza olio, pelati 10 minuti, pecorino alla fine.",
+  "ing": [
+   "pasta",
+   "guanciale",
+   "pelati",
+   "pecorino"
+  ]
+ },
+ {
+  "id": "carbonara",
+  "name": "Carbonara",
+  "cat": "primo",
+  "tag": "salumi",
+  "abit": false,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Guanciale croccante; tuorli e pecorino mescolati fuori dal fuoco con un po' d'acqua di cottura.",
+  "ing": [
+   "pasta",
+   "guanciale",
+   "uova",
+   "pecorino"
+  ]
+ },
+ {
+  "id": "carbozucchine",
+  "name": "Carbonara di zucchine",
+  "cat": "primo",
+  "tag": "uova",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Zucchine a julienne saltate in padella, poi uova e parmigiano sbattuti, mantecati fuori dal fuoco.",
+  "ing": [
+   "pasta",
+   "zucchine",
+   "uova",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "cacioepepe",
+  "name": "Cacio e pepe",
+  "cat": "primo",
+  "tag": "formaggi",
+  "abit": false,
+  "min": 15,
+  "cottura": "pentola",
+  "come": "Pecorino sciolto con acqua di cottura tiepida e pepe tostato in padella.",
+  "ing": [
+   "pasta",
+   "pecorino"
+  ]
+ },
+ {
+  "id": "pesto",
+  "name": "Pasta al pesto fatto in casa",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": false,
+  "min": 15,
+  "cottura": "crudo",
+  "come": "Basilico, pinoli, parmigiano, pecorino, aglio e olio frullati mentre cuoce la pasta.",
+  "ing": [
+   "pasta",
+   "basilico",
+   "pinoli",
+   "parmigiano",
+   "pecorino",
+   "aglio"
+  ]
+ },
+ {
+  "id": "pastatonno",
+  "name": "Pasta al tonno e limone",
+  "cat": "primo",
+  "tag": "pesce",
+  "abit": false,
+  "scatola": true,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Tonno sgocciolato, scorza di limone, prezzemolo e un po' d'acqua di cottura.",
+  "ing": [
+   "pasta",
+   "tonno in scatola",
+   "limone",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "pastasalmone",
+  "name": "Pasta salmone e zucchine",
+  "cat": "primo",
+  "tag": "pesce",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Zucchine a cubetti in padella, poi il salmone a pezzetti per 3 minuti, prezzemolo e limone.",
+  "ing": [
+   "pasta",
+   "salmone",
+   "zucchine",
+   "limone",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "pastazucchine",
+  "name": "Pasta zucchine, menta e pecorino",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Zucchine a rondelle ben dorate in padella, menta fresca e pecorino alla fine.",
+  "ing": [
+   "pasta",
+   "zucchine",
+   "menta",
+   "pecorino"
+  ]
+ },
+ {
+  "id": "pastabroccoli",
+  "name": "Pasta con broccoli, aglio e peperoncino",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "pentola",
+  "come": "Broccoli cotti nella stessa acqua della pasta, poi saltati con aglio, peperoncino e pangrattato tostato.",
+  "ing": [
+   "pasta",
+   "broccoli",
+   "aglio",
+   "peperoncino",
+   "pangrattato"
+  ]
+ },
+ {
+  "id": "pastazucca",
+  "name": "Pasta con crema di zucca e rosmarino",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": false,
+  "side": true,
+  "min": 25,
+  "cottura": "pentola",
+  "come": "Zucca a cubetti stufata con cipolla e rosmarino, frullata e mantecata con parmigiano.",
+  "ing": [
+   "pasta",
+   "zucca",
+   "cipolla",
+   "rosmarino",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "pastafunghi",
+  "name": "Pasta ai funghi e prezzemolo",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Funghi champignon trifolati con aglio e prezzemolo, un cucchiaio di parmigiano.",
+  "ing": [
+   "pasta",
+   "funghi champignon",
+   "aglio",
+   "prezzemolo",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "gnocchi",
+  "name": "Gnocchi al pomodoro e mozzarella",
+  "cat": "primo",
+  "tag": "formaggi",
+  "abit": false,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Gnocchi freschi lessati 2 minuti, saltati nel sugo con mozzarella a cubetti che fila.",
+  "ing": [
+   "gnocchi",
+   "passata di pomodoro",
+   "mozzarella",
+   "basilico"
+  ]
+ },
+ {
+  "id": "pastapatate",
+  "name": "Pasta e patate con provola",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": false,
+  "min": 30,
+  "cottura": "pentola",
+  "come": "Patate a cubetti con cipolla, acqua fino a coprire, pasta cotta dentro e provola a fine cottura.",
+  "ing": [
+   "pasta",
+   "patate",
+   "cipolla",
+   "provola",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "risottozucca",
+  "name": "Risotto alla zucca",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": false,
+  "side": true,
+  "min": 35,
+  "cottura": "pentola",
+  "come": "Zucca a cubetti con cipolla, riso tostato e brodo un mestolo alla volta, mantecato con parmigiano.",
+  "ing": [
+   "riso",
+   "zucca",
+   "cipolla",
+   "parmigiano",
+   "dado"
+  ]
+ },
+ {
+  "id": "minestrone",
+  "name": "Minestrone di verdure di stagione",
+  "cat": "primo",
+  "tag": "veg",
+  "abit": false,
+  "side": true,
+  "min": 15,
+  "cottura": "pentola",
+  "prep": "minestrone",
+  "come": "Si prepara la domenica (45 minuti) con verdure fresche a cubetti; in settimana si scalda e si aggiunge pasta corta o riso.",
+  "ing": [
+   "zucca",
+   "carote",
+   "patate",
+   "zucchine",
+   "sedano",
+   "cipolla",
+   "cavolo nero",
+   "pasta",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "pastaefagioli",
+  "name": "Pasta e fagioli",
+  "cat": "primo",
+  "tag": "legumi",
+  "abit": false,
+  "min": 20,
+  "cottura": "pentola",
+  "prep": "fagioli",
+  "come": "Con i fagioli cotti la domenica: soffritto, passata, fagioli e un po' della loro acqua, pasta cotta dentro.",
+  "ing": [
+   "fagioli secchi",
+   "pasta",
+   "passata di pomodoro",
+   "cipolla",
+   "rosmarino"
+  ]
+ },
+ {
+  "id": "pastaececi",
+  "name": "Pasta e ceci al rosmarino",
+  "cat": "primo",
+  "tag": "legumi",
+  "abit": false,
+  "min": 20,
+  "cottura": "pentola",
+  "prep": "ceci",
+  "come": "Con i ceci cotti la domenica: aglio e rosmarino, metà ceci frullati per la cremosità, pasta cotta dentro.",
+  "ing": [
+   "ceci secchi",
+   "pasta",
+   "aglio",
+   "rosmarino"
+  ]
+ },
+ {
+  "id": "pastalenticchie",
+  "name": "Pasta e lenticchie rosse",
+  "cat": "primo",
+  "tag": "legumi",
+  "abit": false,
+  "min": 20,
+  "cottura": "pentola",
+  "come": "Le lenticchie rosse decorticate non vanno in ammollo e cuociono in 15 minuti: soffritto, lenticchie, acqua, poi la pasta.",
+  "ing": [
+   "lenticchie rosse decorticate",
+   "pasta",
+   "cipolla",
+   "carota",
+   "sedano"
+  ]
+ },
+ {
+  "id": "vellutatalenticchie",
+  "name": "Vellutata di lenticchie rosse e carote",
+  "cat": "primo",
+  "tag": "legumi",
+  "abit": false,
+  "side": true,
+  "min": 25,
+  "cottura": "pentola",
+  "come": "Lenticchie rosse, carote e cipolla in brodo per 20 minuti, frullate; crostini di pane e un filo d'olio.",
+  "ing": [
+   "lenticchie rosse decorticate",
+   "carote",
+   "cipolla",
+   "pane"
+  ]
+ },
+ {
+  "id": "lenticchie",
+  "name": "Lenticchie in umido",
+  "cat": "secondo",
+  "tag": "legumi",
+  "abit": true,
+  "min": 15,
+  "cottura": "pentola",
+  "prep": "lenticchie",
+  "come": "Con le lenticchie cotte la domenica: soffritto, un po' di passata, 10 minuti di cottura.",
+  "ing": [
+   "lenticchie secche",
+   "cipolla",
+   "carota",
+   "sedano",
+   "passata di pomodoro"
+  ]
+ },
+ {
+  "id": "fagioli",
+  "name": "Fagioli all'olio con cipolla rossa",
+  "cat": "secondo",
+  "tag": "legumi",
+  "abit": true,
+  "min": 10,
+  "cottura": "crudo",
+  "prep": "fagioli",
+  "come": "Fagioli cotti la domenica, tiepidi, con cipolla rossa sottile, olio buono, sale e pepe.",
+  "ing": [
+   "fagioli secchi",
+   "cipolla rossa"
+  ]
+ },
+ {
+  "id": "hummus",
+  "name": "Hummus con verdure crude e pane",
+  "cat": "secondo",
+  "tag": "legumi",
+  "abit": false,
+  "side": true,
+  "min": 10,
+  "cottura": "crudo",
+  "prep": "ceci",
+  "come": "Ceci cotti la domenica frullati con limone, aglio, olio e un po' della loro acqua. Carote e sedano a bastoncini.",
+  "ing": [
+   "ceci secchi",
+   "limone",
+   "aglio",
+   "carote",
+   "sedano",
+   "pane"
+  ]
+ },
+ {
+  "id": "cecispinaci",
+  "name": "Ceci e spinaci con paprika",
+  "cat": "secondo",
+  "tag": "legumi",
+  "abit": false,
+  "side": true,
+  "min": 15,
+  "cottura": "padella",
+  "prep": "ceci",
+  "come": "Aglio e paprika nell'olio, ceci cotti la domenica e spinaci in padella per 8 minuti.",
+  "ing": [
+   "ceci secchi",
+   "spinaci",
+   "aglio",
+   "paprika"
+  ]
+ },
+ {
+  "id": "lenticchiecurry",
+  "name": "Lenticchie rosse al curry con riso",
+  "cat": "secondo",
+  "tag": "legumi",
+  "abit": false,
+  "min": 25,
+  "cottura": "pentola",
+  "come": "Cipolla, curry e un po' di passata, lenticchie rosse e acqua per 15 minuti; riso basmati a parte.",
+  "ing": [
+   "lenticchie rosse decorticate",
+   "cipolla",
+   "curry",
+   "passata di pomodoro",
+   "riso"
+  ]
+ },
+ {
+  "id": "zuppalegumi",
+  "name": "Zuppa di legumi e cavolo nero",
+  "cat": "secondo",
+  "tag": "legumi",
+  "abit": false,
+  "side": true,
+  "min": 25,
+  "cottura": "pentola",
+  "prep": "fagioli",
+  "come": "Soffritto, cavolo nero a striscioline, fagioli cotti la domenica e brodo per 15 minuti; pane tostato.",
+  "ing": [
+   "fagioli secchi",
+   "cavolo nero",
+   "cipolla",
+   "carota",
+   "sedano",
+   "pane"
+  ]
+ },
+ {
+  "id": "uccelletto",
+  "name": "Fagioli all'uccelletto con salsiccia",
+  "cat": "secondo",
+  "tag": "legumi",
+  "abit": false,
+  "min": 25,
+  "cottura": "padella",
+  "prep": "fagioli",
+  "come": "Salsiccia sbriciolata, pelati e salvia, poi i fagioli cotti la domenica per 10 minuti.",
+  "ing": [
+   "fagioli secchi",
+   "salsiccia",
+   "pelati",
+   "salvia"
+  ]
+ },
+ {
+  "id": "pollo",
+  "name": "Petti di pollo al limone e rosmarino",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": true,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Fette sottili sulla piastra ben calda, 3-4 minuti per lato, poi limone e rosmarino.",
+  "ing": [
+   "petti di pollo",
+   "limone",
+   "rosmarino"
+  ]
+ },
+ {
+  "id": "bocconcini",
+  "name": "Bocconcini di pollo al limone",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": false,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Pollo a cubetti infarinato, dorato in padella e sfumato con succo di limone e un po' d'acqua.",
+  "ing": [
+   "petti di pollo",
+   "farina",
+   "limone"
+  ]
+ },
+ {
+  "id": "pollocurry",
+  "name": "Pollo al curry con riso",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": false,
+  "min": 25,
+  "cottura": "padella",
+  "come": "Cipolla, pollo a cubetti, curry e un po' di latte o yogurt per 15 minuti; riso basmati a parte.",
+  "ing": [
+   "petti di pollo",
+   "cipolla",
+   "curry",
+   "yogurt bianco",
+   "riso"
+  ]
+ },
+ {
+  "id": "pollovapore",
+  "name": "Pollo al vapore con verdure",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "vapore",
+  "come": "Funzione vapore della friggitrice: pollo a fette e verdure a bastoncini insieme per 15-18 minuti; olio e limone a crudo.",
+  "ing": [
+   "petti di pollo",
+   "carote",
+   "zucchine",
+   "limone"
+  ]
+ },
+ {
+  "id": "cotoletta",
+  "name": "Cotoletta di pollo al forno",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": false,
+  "min": 25,
+  "cottura": "forno",
+  "come": "Uovo e pangrattato con parmigiano, un filo d'olio sopra; forno a 200° per 15 minuti girandola a metà.",
+  "ing": [
+   "petti di pollo",
+   "uova",
+   "pangrattato",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "spiedini",
+  "name": "Spiedini di pollo e peperoni",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "friggitrice",
+  "come": "Cubetti di pollo alternati a peperoni e cipolla; friggitrice a 200° per 12-14 minuti.",
+  "ing": [
+   "petti di pollo",
+   "peperoni",
+   "cipolla"
+  ]
+ },
+ {
+  "id": "straccetti",
+  "name": "Straccetti di pollo con rucola e grana",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": false,
+  "side": true,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Striscioline di pollo in padella 5 minuti, servite calde su rucola, pomodorini e scaglie di grana.",
+  "ing": [
+   "petti di pollo",
+   "rucola",
+   "pomodorini",
+   "grana"
+  ]
+ },
+ {
+  "id": "tacchino",
+  "name": "Scaloppine di tacchino ai funghi",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Fettine infarinate dorate in padella, poi funghi trifolati e un po' di brodo per 5 minuti.",
+  "ing": [
+   "fettine di tacchino",
+   "funghi champignon",
+   "farina",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "pollopatate",
+  "name": "Pollo e patate al forno",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": false,
+  "side": true,
+  "min": 50,
+  "cottura": "forno",
+  "come": "Cosce e patate a spicchi con rosmarino, aglio e olio; forno a 200° per 40-45 minuti.",
+  "ing": [
+   "cosce di pollo",
+   "patate",
+   "rosmarino",
+   "aglio"
+  ]
+ },
+ {
+  "id": "cacciatora",
+  "name": "Pollo alla cacciatora",
+  "cat": "secondo",
+  "tag": "pollo",
+  "abit": false,
+  "min": 50,
+  "cottura": "pentola",
+  "come": "Pollo a pezzi rosolato, poi pomodoro, olive, rosmarino e aglio, 40 minuti a fuoco basso.",
+  "ing": [
+   "cosce di pollo",
+   "pelati",
+   "olive",
+   "rosmarino",
+   "aglio"
+  ]
+ },
+ {
+  "id": "fettina",
+  "name": "Fettina in padella",
+  "cat": "secondo",
+  "tag": "carne",
+  "abit": true,
+  "min": 10,
+  "cottura": "padella",
+  "come": "Padella caldissima, un minuto per lato, sale alla fine.",
+  "ing": [
+   "fettine di manzo"
+  ]
+ },
+ {
+  "id": "tagliata",
+  "name": "Tagliata con rucola e grana",
+  "cat": "secondo",
+  "tag": "carne",
+  "abit": false,
+  "side": true,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Controfiletto su piastra rovente 3-4 minuti per lato, riposo 5 minuti, a fette su rucola e grana.",
+  "ing": [
+   "controfiletto di manzo",
+   "rucola",
+   "grana"
+  ]
+ },
+ {
+  "id": "hamburger",
+  "name": "Hamburger con cipolle caramellate",
+  "cat": "secondo",
+  "tag": "carne",
+  "abit": false,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Cipolle stufate a fuoco basso con un pizzico di zucchero; hamburger in padella 4 minuti per lato.",
+  "ing": [
+   "carne macinata",
+   "cipolla"
+  ]
+ },
+ {
+  "id": "scaloppine",
+  "name": "Scaloppine al limone",
+  "cat": "secondo",
+  "tag": "carne",
+  "abit": false,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Fettine infarinate in padella con poco burro, sfumate con il succo di limone.",
+  "ing": [
+   "fettine di vitello",
+   "farina",
+   "limone",
+   "burro"
+  ]
+ },
+ {
+  "id": "polpette",
+  "name": "Polpette al sugo",
+  "cat": "secondo",
+  "tag": "carne",
+  "abit": false,
+  "min": 45,
+  "cottura": "pentola",
+  "come": "Impasta, forma le polpette e cuocile 25 minuti direttamente nella passata; il sugo condisce la pasta del giorno dopo.",
+  "ing": [
+   "carne macinata",
+   "uova",
+   "pangrattato",
+   "parmigiano",
+   "passata di pomodoro"
+  ]
+ },
+ {
+  "id": "spezzatino",
+  "name": "Spezzatino con patate",
+  "cat": "secondo",
+  "tag": "carne",
+  "abit": false,
+  "side": true,
+  "min": 90,
+  "cottura": "pentola",
+  "come": "Carne a cubetti rosolata, soffritto, un po' di pomodoro e brodo; patate negli ultimi 30 minuti.",
+  "ing": [
+   "spezzatino di manzo",
+   "patate",
+   "cipolla",
+   "carota",
+   "sedano",
+   "passata di pomodoro"
+  ]
+ },
+ {
+  "id": "salsicciacicoria",
+  "name": "Salsicce e cicoria ripassata",
+  "cat": "secondo",
+  "tag": "salumi",
+  "abit": false,
+  "side": true,
+  "min": 30,
+  "cottura": "padella",
+  "come": "Salsicce in padella con un dito d'acqua per 15 minuti; cicoria lessata e ripassata con aglio e peperoncino.",
+  "ing": [
+   "salsiccia",
+   "cicoria",
+   "aglio",
+   "peperoncino"
+  ]
+ },
+ {
+  "id": "frittata",
+  "name": "Frittata al parmigiano",
+  "cat": "secondo",
+  "tag": "uova",
+  "abit": true,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Uova, parmigiano e pepe; padella antiaderente a fuoco medio, girata con un piatto.",
+  "ing": [
+   "uova",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "frittatazucchine",
+  "name": "Frittata di zucchine e menta",
+  "cat": "secondo",
+  "tag": "uova",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Zucchine a rondelle dorate in padella, poi le uova sbattute con menta e parmigiano.",
+  "ing": [
+   "uova",
+   "zucchine",
+   "menta",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "frittatapatate",
+  "name": "Frittata di patate e cipolle",
+  "cat": "secondo",
+  "tag": "uova",
+  "abit": false,
+  "min": 30,
+  "cottura": "padella",
+  "come": "Patate a fettine sottili e cipolla stufate in padella 15 minuti, poi le uova; cottura lenta con coperchio.",
+  "ing": [
+   "uova",
+   "patate",
+   "cipolla"
+  ]
+ },
+ {
+  "id": "uovapomodoro",
+  "name": "Uova al pomodoro",
+  "cat": "secondo",
+  "tag": "uova",
+  "abit": false,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Passata con basilico 5 minuti, poi le uova dentro con il coperchio per 6-7 minuti; pane per la scarpetta.",
+  "ing": [
+   "uova",
+   "passata di pomodoro",
+   "basilico",
+   "pane"
+  ]
+ },
+ {
+  "id": "uovaspinaci",
+  "name": "Uova strapazzate con spinaci",
+  "cat": "secondo",
+  "tag": "uova",
+  "abit": false,
+  "side": true,
+  "min": 10,
+  "cottura": "padella",
+  "come": "Spinaci saltati 3 minuti, poi le uova mescolate piano con parmigiano: morbide, non asciutte.",
+  "ing": [
+   "uova",
+   "spinaci",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "uovasode",
+  "name": "Uova sode, patate e fagiolini",
+  "cat": "secondo",
+  "tag": "uova",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "vapore",
+  "come": "Patate e fagiolini al vapore 15 minuti, uova sode 9 minuti; tutto condito con olio, limone e prezzemolo.",
+  "ing": [
+   "uova",
+   "patate",
+   "fagiolini",
+   "limone",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "uovafunghi",
+  "name": "Uova al forno con funghi",
+  "cat": "secondo",
+  "tag": "uova",
+  "abit": false,
+  "side": true,
+  "min": 25,
+  "cottura": "forno",
+  "come": "Funghi a fette in una pirofila con olio e sale, uova sopra, parmigiano; forno a 190° per 15 minuti.",
+  "ing": [
+   "uova",
+   "funghi champignon",
+   "parmigiano",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "insalatatonno",
+  "name": "Insalatona con tonno",
+  "cat": "secondo",
+  "tag": "pesce",
+  "abit": true,
+  "side": true,
+  "scatola": true,
+  "min": 10,
+  "cottura": "crudo",
+  "come": "Insalata, pomodori, olive e tonno sgocciolato; olio e limone.",
+  "ing": [
+   "tonno in scatola",
+   "insalata",
+   "pomodori",
+   "olive"
+  ]
+ },
+ {
+  "id": "salmone",
+  "name": "Salmone al forno con erbe e limone",
+  "cat": "secondo",
+  "tag": "pesce",
+  "abit": false,
+  "min": 20,
+  "cottura": "forno",
+  "come": "Trancio con fettine di limone, prezzemolo e un filo d'olio; forno a 200° per 12-15 minuti.",
+  "ing": [
+   "salmone",
+   "limone",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "cartoccio",
+  "name": "Orata al cartoccio con pomodorini",
+  "cat": "secondo",
+  "tag": "pesce",
+  "abit": false,
+  "side": true,
+  "min": 25,
+  "cottura": "forno",
+  "come": "Filetti su carta forno con pomodorini, olive e origano, chiusi a pacchetto; forno a 200° per 15 minuti.",
+  "ing": [
+   "filetti di orata",
+   "pomodorini",
+   "olive",
+   "origano"
+  ]
+ },
+ {
+  "id": "merluzzo",
+  "name": "Merluzzo con pomodorini e olive",
+  "cat": "secondo",
+  "tag": "pesce",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Pomodorini e olive in padella 5 minuti, poi i filetti con il coperchio per 8 minuti; prezzemolo.",
+  "ing": [
+   "filetti di merluzzo",
+   "pomodorini",
+   "olive",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "pescevapore",
+  "name": "Pesce al vapore con zucchine",
+  "cat": "secondo",
+  "tag": "pesce",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "vapore",
+  "come": "Funzione vapore: filetti e zucchine a rondelle per 12-15 minuti; olio, limone e prezzemolo a crudo.",
+  "ing": [
+   "filetti di merluzzo",
+   "zucchine",
+   "limone",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "gamberi",
+  "name": "Gamberi aglio, prezzemolo e limone",
+  "cat": "secondo",
+  "tag": "pesce",
+  "abit": false,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Gamberi sgusciati (anche surgelati) 3-4 minuti in padella con aglio, poi limone e prezzemolo.",
+  "ing": [
+   "gamberi surgelati",
+   "aglio",
+   "prezzemolo",
+   "limone"
+  ]
+ },
+ {
+  "id": "platessa",
+  "name": "Filetti di platessa al limone",
+  "cat": "secondo",
+  "tag": "pesce",
+  "abit": false,
+  "min": 10,
+  "cottura": "padella",
+  "come": "Pesce delicato, piace anche a chi non ama il pesce: filetti in padella con olio 3 minuti per lato, limone e prezzemolo.",
+  "ing": [
+   "filetti di platessa",
+   "limone",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "caprese",
+  "name": "Caprese",
+  "cat": "secondo",
+  "tag": "formaggi",
+  "abit": true,
+  "side": true,
+  "min": 5,
+  "cottura": "crudo",
+  "come": "Mozzarella e pomodori a fette, basilico, olio a crudo.",
+  "ing": [
+   "mozzarella",
+   "pomodori",
+   "basilico"
+  ]
+ },
+ {
+  "id": "piadina",
+  "name": "Piadina stracchino e rucola",
+  "cat": "secondo",
+  "tag": "formaggi",
+  "abit": false,
+  "side": true,
+  "min": 10,
+  "cottura": "padella",
+  "come": "Piadina scaldata in padella, stracchino, rucola e pomodorini.",
+  "ing": [
+   "piadine",
+   "stracchino",
+   "rucola",
+   "pomodorini"
+  ]
+ },
+ {
+  "id": "tortasalata",
+  "name": "Torta salata ricotta e spinaci",
+  "cat": "secondo",
+  "tag": "formaggi",
+  "abit": false,
+  "side": true,
+  "min": 45,
+  "cottura": "forno",
+  "come": "Spinaci strizzati con ricotta, uovo e parmigiano nella sfoglia; forno a 180° per 30 minuti.",
+  "ing": [
+   "pasta sfoglia",
+   "ricotta",
+   "spinaci",
+   "uova",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "pizza",
+  "name": "Pizza (in casa o d'asporto)",
+  "cat": "secondo",
+  "tag": "pizza",
+  "abit": false,
+  "side": true,
+  "min": 20,
+  "cottura": "forno",
+  "come": "La serata libera della settimana.",
+  "ing": [
+   "mozzarella",
+   "passata di pomodoro",
+   "farina"
+  ]
+ },
+ {
+  "id": "insalata",
+  "name": "Insalata verde",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": true,
+  "min": 5,
+  "cottura": "crudo",
+  "ing": [
+   "insalata"
+  ]
+ },
+ {
+  "id": "pomodori",
+  "name": "Pomodori in insalata",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": true,
+  "min": 5,
+  "cottura": "crudo",
+  "ing": [
+   "pomodori",
+   "basilico"
+  ]
+ },
+ {
+  "id": "cicoria",
+  "name": "Cicoria ripassata",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": true,
+  "min": 20,
+  "cottura": "padella",
+  "come": "Comprala già pulita; lessata o al vapore, poi ripassata con aglio e peperoncino.",
+  "ing": [
+   "cicoria",
+   "aglio",
+   "peperoncino"
+  ]
+ },
+ {
+  "id": "finocchi",
+  "name": "Finocchi e arance",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 5,
+  "cottura": "crudo",
+  "come": "Finocchi a fette sottili, spicchi d'arancia, olive nere e olio.",
+  "ing": [
+   "finocchi",
+   "arance",
+   "olive"
+  ]
+ },
+ {
+  "id": "spinaci",
+  "name": "Spinaci al burro e parmigiano",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 10,
+  "cottura": "padella",
+  "come": "Spinaci lavati direttamente in padella per 5 minuti, una noce di burro e parmigiano.",
+  "ing": [
+   "spinaci",
+   "burro",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "zucchine",
+  "name": "Zucchine trifolate",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 15,
+  "cottura": "padella",
+  "come": "A rondelle con aglio e prezzemolo, fuoco vivace per restare croccanti.",
+  "ing": [
+   "zucchine",
+   "aglio",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "funghi",
+  "name": "Funghi trifolati",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Champignon a fette con aglio e prezzemolo, 10 minuti a fuoco vivace.",
+  "ing": [
+   "funghi champignon",
+   "aglio",
+   "prezzemolo"
+  ]
+ },
+ {
+  "id": "cavolonero",
+  "name": "Cavolo nero ripassato",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Foglie senza costa a striscioline, sbollentate 3 minuti e ripassate con aglio e olio.",
+  "ing": [
+   "cavolo nero",
+   "aglio"
+  ]
+ },
+ {
+  "id": "carote",
+  "name": "Carote glassate al miele",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 15,
+  "cottura": "padella",
+  "come": "Rondelle in padella con un po' d'acqua, olio e un cucchiaino di miele fino a che si asciuga.",
+  "ing": [
+   "carote",
+   "miele"
+  ]
+ },
+ {
+  "id": "peperoni",
+  "name": "Peperonata leggera",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 30,
+  "cottura": "padella",
+  "come": "Peperoni e cipolla a falde, stufati con un po' di pomodoro per 25 minuti.",
+  "ing": [
+   "peperoni",
+   "cipolla",
+   "passata di pomodoro"
+  ]
+ },
+ {
+  "id": "fagiolini",
+  "name": "Fagiolini al vapore",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 15,
+  "cottura": "vapore",
+  "come": "Funzione vapore per 12 minuti; olio e limone a crudo.",
+  "ing": [
+   "fagiolini",
+   "limone"
+  ]
+ },
+ {
+  "id": "broccoli",
+  "name": "Broccoli al vapore con limone",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 15,
+  "cottura": "vapore",
+  "come": "Funzione vapore per 10-12 minuti; olio, limone e un pizzico di peperoncino.",
+  "ing": [
+   "broccoli",
+   "limone"
+  ]
+ },
+ {
+  "id": "zucca",
+  "name": "Zucca al forno con rosmarino",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 35,
+  "cottura": "forno",
+  "come": "A spicchi con buccia, rosmarino, sale e olio; forno a 200° per 25-30 minuti.",
+  "ing": [
+   "zucca",
+   "rosmarino"
+  ]
+ },
+ {
+  "id": "cavolfiore",
+  "name": "Cavolfiore al forno con parmigiano",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 30,
+  "cottura": "forno",
+  "come": "Cimette crude in teglia con olio, sale e parmigiano; forno a 200° per 25 minuti.",
+  "ing": [
+   "cavolfiore",
+   "parmigiano"
+  ]
+ },
+ {
+  "id": "patateforno",
+  "name": "Patate croccanti in friggitrice",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 25,
+  "cottura": "friggitrice",
+  "come": "A spicchi con rosmarino e un cucchiaio d'olio, 200° per 20 minuti.",
+  "ing": [
+   "patate",
+   "rosmarino"
+  ]
+ },
+ {
+  "id": "verdurefriggitrice",
+  "name": "Verdure miste croccanti in friggitrice",
+  "cat": "contorno",
+  "tag": "veg",
+  "abit": false,
+  "min": 20,
+  "cottura": "friggitrice",
+  "come": "Zucchine, peperoni e cipolla a pezzi con un filo d'olio; 200° per 15 minuti.",
+  "ing": [
+   "zucchine",
+   "peperoni",
+   "cipolla"
+  ]
+ }
+]

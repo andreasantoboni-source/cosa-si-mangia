@@ -1,0 +1,10 @@
+{
+  "name": "cosa-si-mangia",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Menu settimanale di famiglia con lista della spesa condivisa",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.1"
+  }
+}

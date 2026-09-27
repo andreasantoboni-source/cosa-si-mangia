@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cosa si mangia</title>
+<meta name="description" content="Il menu settimanale di famiglia con la lista della spesa condivisa.">
+<meta name="theme-color" content="#1C3E9E">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Si mangia">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Caveat:wght@600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --desk:#EEF1F6; --paper:#FBFCFE; --grid:#E4E9F2; --line:#D3DAE6;
+  --text:#18202E; --muted:#5B6678; --ink:#1C3E9E; --on-ink:#FFFFFF;
+  --margin:#D2433A; --hover:#EEF2FB; --today:#FFF4F2; --backdrop:rgba(18,24,38,.45);
+  --t-legumi:#8F640E; --t-pesce:#0D7580; --t-carne:#A33A2B; --t-pollo:#B0650A;
+  --t-uova:#9A7E00; --t-formaggi:#2F6DB5; --t-veg:#2E7D46; --t-pizza:#8E3FA0; --t-salumi:#B0456E;
+  --ok:#2E7D46; --warn:#B86A00; --bad:#C23A30;
+  --shadow:0 10px 40px rgba(20,30,60,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --desk:#0E131C; --paper:#151C28; --grid:#1C2533; --line:#2A3446;
+    --text:#E4E9F2; --muted:#98A3B6; --ink:#9DB6FF; --on-ink:#0E1422;
+    --margin:#FF7A70; --hover:#1B2433; --today:#2A1C1F; --backdrop:rgba(0,0,0,.6);
+    --t-legumi:#E0B04F; --t-pesce:#4FC6CF; --t-carne:#F08A78; --t-pollo:#F2A24A;
+    --t-uova:#E6CF4A; --t-formaggi:#7FB0F0; --t-veg:#6CCB8A; --t-pizza:#D38BE6; --t-salumi:#F08BB0;
+  --ok:#6CCB8A; --warn:#F2A24A; --bad:#FF7A70;
+    --shadow:0 10px 40px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --desk:#0E131C; --paper:#151C28; --grid:#1C2533; --line:#2A3446;
+  --text:#E4E9F2; --muted:#98A3B6; --ink:#9DB6FF; --on-ink:#0E1422;
+  --margin:#FF7A70; --hover:#1B2433; --today:#2A1C1F; --backdrop:rgba(0,0,0,.6);
+  --t-legumi:#E0B04F; --t-pesce:#4FC6CF; --t-carne:#F08A78; --t-pollo:#F2A24A;
+  --t-uova:#E6CF4A; --t-formaggi:#7FB0F0; --t-veg:#6CCB8A; --t-pizza:#D38BE6; --t-salumi:#F08BB0;
+  --ok:#6CCB8A; --warn:#F2A24A; --bad:#FF7A70;
+  --shadow:0 10px 40px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--desk);color:var(--text);font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:20px 72px;display:flex;flex-direction:column;gap:16px}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,7vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px}
+.week{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;color:var(--muted);font-size:15px;margin:0}
+.mode{font-size:13px;color:var(--muted);margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;background:var(--desk);border:1px solid var(--line);border-radius:10px}
+.tabs button{border:0;background:transparent;padding:9px 6px;border-radius:7px;font-weight:700;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.paper{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:22px 22px;border:1px solid var(--line);border-radius:8px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.between{justify-content:space-between}
+.btn{border:1.5px solid var(--ink);color:var(--ink);background:transparent;padding:8px 14px;border-radius:8px;font-weight:700;font-size:15px}
+.btn:hover{background:var(--hover)}
+.btn.primary{background:var(--ink);color:var(--on-ink)}
+.btn.small{padding:5px 10px;font-size:14px}
+.btn.quiet{border-color:var(--line);color:var(--text)}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper)}
+.seg button{border:0;background:transparent;padding:5px 11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink)}
+.today-card{padding:12px 14px 12px 16px;border-left:3px solid var(--margin)}
+.today-card p{margin:2px 0 0}
+.hand{font-family:"Caveat","Bradley Hand","Segoe Print",cursive;font-weight:600;color:var(--ink);font-size:23px;line-height:1.1}
+/* week */
+.days{list-style:none;margin:0;padding:0;position:relative;overflow:hidden}
+.days::before{content:"";position:absolute;left:66px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.55}
+.day{display:grid;grid-template-columns:66px 1fr;border-bottom:1px solid var(--line)}
+.day:last-child{border-bottom:0}
+.day.today{background:var(--today)}
+.dlabel{padding:12px 8px 0 12px;display:flex;flex-direction:column;line-height:1.1}
+.dname{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:15px}
+.dnum{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.day.today .dname{color:var(--margin)}
+.meals{display:flex;flex-direction:column;min-width:0}
+.meal{display:grid;grid-template-columns:1fr;gap:2px 10px;align-items:center;text-align:left;border:0;background:transparent;padding:9px 12px 9px 14px;width:100%}
+.meal-wrap+.meal-wrap{border-top:1px dashed var(--line)}
+.nofish{display:block;font-size:13px;color:var(--muted);font-style:italic}
+.alts{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:0 12px 10px 14px}
+.alts-l{font-size:12px;color:var(--muted)}
+.alt{border:1px dashed var(--ink);background:transparent;color:var(--ink);border-radius:99px;padding:3px 10px;font-size:13px;font-weight:700;text-align:left}
+.alt:hover{background:var(--hover);border-style:solid}
+.alt small{font-weight:400;color:var(--muted)}
+.meal:hover{background:var(--hover)}
+.meal .label{grid-column:1/-1;font-size:11px}
+.meal .hand{min-width:0;overflow-wrap:anywhere}
+.side{display:block;font-size:19px;opacity:.85}
+.meta{display:flex;align-items:center;gap:6px;justify-self:start;flex-wrap:wrap}
+.meta:empty{display:none}
+@media (min-width:600px){.meal{grid-template-columns:1fr auto}.meal .meta{justify-self:end}}
+.opts .meta{justify-self:end;flex-wrap:nowrap}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);white-space:nowrap}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--muted))}
+.new{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--margin);border:1px solid var(--margin);border-radius:99px;padding:1px 7px;white-space:nowrap}
+.lock{width:15px;height:15px;color:var(--ink)}
+.fuori{color:var(--muted)}
+.hint{font-size:14px;color:var(--muted);margin:0}
+/* spesa */
+.groups{padding:6px 0}
+.group{padding:8px 14px 10px}
+.group+.group{border-top:1px solid var(--line)}
+.group h3{font-size:16px;display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-block:4px}
+.group h3 small{font-family:"Atkinson Hyperlegible",system-ui,sans-serif;font-weight:400;font-size:13px;color:var(--muted)}
+.items{list-style:none;margin:0;padding:0}
+.items li{display:flex;align-items:flex-start;gap:8px}
+.items label{display:flex;gap:10px;align-items:flex-start;padding:7px 0;flex:1;cursor:pointer;min-width:0}
+.items input[type=checkbox]{width:20px;height:20px;margin:2px 0 0;accent-color:var(--ink);flex:none}
+.iname{font-weight:700}
+.ifor{display:block;font-size:13px;color:var(--muted)}
+.done .iname{text-decoration:line-through;color:var(--muted);font-weight:400}
+.x{border:0;background:transparent;color:var(--muted);padding:6px 8px;font-size:14px}
+.addx{display:flex;gap:8px}
+input[type=text],select,textarea{font:inherit;color:var(--text);background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+.counter{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;font-size:18px;margin:0}
+.counter b{color:var(--ink);font-variant-numeric:tabular-nums}
+/* piatti */
+.dlist{list-style:none;margin:0;padding:0}
+.drow{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
+.drow:last-child{border-bottom:0}
+.drow .hand{font-size:22px}
+.ings{display:block;font-size:13px;color:var(--muted)}
+.dacts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.status{border:1px solid var(--line);background:var(--paper);border-radius:99px;padding:3px 10px;font-size:13px;font-weight:700}
+.status.abit{border-color:var(--ink);color:var(--ink)}
+.status.prova{border-color:var(--margin);color:var(--margin)}
+details.add{padding:12px 14px}
+details.add summary{font-weight:700;color:var(--ink);cursor:pointer}
+.form{display:grid;gap:10px;margin-top:12px}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form label{display:grid;gap:4px;font-size:14px;font-weight:700}
+.form .check{display:flex;gap:8px;align-items:center;font-weight:400}
+@media (max-width:460px){.drow{grid-template-columns:1fr}.dacts{justify-content:flex-start}}
+.check{display:inline-flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--ink);margin:0}
+.balance-box{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.bal-title{font-size:16px}
+.balance{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.balance{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.balance li{border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:var(--paper);display:flex;flex-direction:column;gap:1px;border-left:4px solid var(--st)}
+.balance .bn{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:18px;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:6px}
+.balance .bn small{font-family:"Atkinson Hyperlegible",system-ui,sans-serif;font-size:12px;font-weight:700;color:var(--st)}
+.balance .bl{font-size:13px;font-weight:700}
+.balance .bt{font-size:12px;color:var(--muted)}
+.prep-card{padding:12px 14px;border-left:3px solid var(--ink)}
+.prep-card ul{margin:6px 0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:15px}
+.prep-card p{margin:0}
+.how{margin:0;padding:10px 12px;border-radius:8px;background:var(--hover);font-size:15px}
+.how b{color:var(--ink)}
+.cook{font-size:12px;font-weight:700;color:var(--ink);white-space:nowrap}
+/* sheet */
+.backdrop{position:fixed;inset:0;background:var(--backdrop);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--paper);width:100%;max-width:560px;max-height:86vh;overflow:auto;border-radius:14px 14px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom,0px));box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px}
+@media (min-width:700px){.backdrop{align-items:center}.sheet{border-radius:14px}}
+.sheet .current{font-size:30px}
+.opts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.opts button{width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;padding:9px 4px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.opts button:hover{background:var(--hover)}
+.opts .hand{font-size:21px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:99px;padding:4px 11px;font-size:14px}
+.chip[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);font-weight:700}
+.copybox{width:100%;min-height:180px;font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--text);color:var(--paper);padding:10px 16px;border-radius:8px;font-weight:700;z-index:30;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .18s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+.gate{position:fixed;inset:0;z-index:40;background:var(--desk);display:flex;align-items:center;justify-content:center;padding:16px}
+.gate-card{width:100%;max-width:380px;padding:24px 20px;display:flex;flex-direction:column;gap:14px}
+.gate-card h1{font-size:32px}
+.gate-card form{display:flex;flex-direction:column;gap:10px}
+.gate-msg{min-height:1.4em;margin:0;color:var(--margin);font-size:14px}
+.foot{display:flex;justify-content:center;padding-top:8px}
+.linkbtn{border:0;background:none;color:var(--muted);text-decoration:underline;font-size:13px;padding:6px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Cosa si mangia</h1>
+    <p class="week" id="weekLabel"></p>
+  </header>
+  <p class="mode" id="mode" hidden></p>
+
+  <nav class="tabs" role="tablist" aria-label="Sezioni">
+    <button role="tab" id="t-menu" data-tab="menu" aria-selected="true">Settimana</button>
+    <button role="tab" id="t-spesa" data-tab="spesa" aria-selected="false">Spesa</button>
+    <button role="tab" id="t-piatti" data-tab="piatti" aria-selected="false">Piatti</button>
+  </nav>
+
+  <section id="p-menu" class="wrap-sec" style="display:flex;flex-direction:column;gap:14px">
+    <div id="todayBox"></div>
+    <div id="prepBox"></div>
+    <section class="paper balance-box" aria-labelledby="balTitle">
+      <div class="row between"><h2 id="balTitle" class="bal-title">Equilibrio della settimana</h2><span class="hint">frequenze CREA</span></div>
+      <ul class="balance" id="balance"></ul>
+    </section>
+    <div class="row between">
+      <div class="row">
+        <span class="label" title="Minimo di piatti da provare in settimana">Novità minime</span>
+        <div class="seg" id="novSeg" role="group" aria-label="Piatti nuovi a settimana"></div>
+      </div>
+      <label class="check" for="veloce"><input type="checkbox" id="veloce"> Lun–ven solo piatti entro 25 min</label>
+    </div>
+    <div class="row">
+      <button class="btn quiet small" data-act="shuffle">Rimescola</button>
+      <button class="btn primary small" data-act="newweek">Nuova settimana</button>
+    </div>
+    <ol class="days paper" id="days"></ol>
+    <p class="hint">Tocca un pasto per vedere come si prepara, cambiarlo o bloccarlo. "Rimescola" cambia tutto tranne i pasti bloccati.</p>
+  </section>
+
+  <section id="p-spesa" hidden style="display:flex;flex-direction:column;gap:14px">
+    <div class="row between">
+      <p class="counter" id="spesaCount"></p>
+      <button class="btn primary small" data-act="copy">Copia per WhatsApp</button>
+    </div>
+    <p class="hint">Spunta quello che hai già in casa o che hai preso. Nel messaggio copiato finisce solo quello che manca.</p>
+    <form class="addx" id="addExtra">
+      <input type="text" id="extraInput" placeholder="Aggiungi altro: latte, caffè, detersivo…" aria-label="Aggiungi alla spesa" autocomplete="off">
+      <button class="btn small" type="submit">Aggiungi</button>
+    </form>
+    <div class="groups paper" id="groups"></div>
+  </section>
+
+  <section id="p-piatti" hidden style="display:flex;flex-direction:column;gap:14px">
+    <p class="hint"><b>Abituali</b> sono i piatti che fate spesso. <b>Da provare</b> sono le novità: il menu ne inserisce quante ne scegli ogni settimana. Se una novità vi piace, segnala come abituale. Se non piace, escludila.</p>
+    <div class="chips" id="filters"></div>
+    <details class="add paper" id="addBox">
+      <summary>Aggiungi un piatto</summary>
+      <form class="form" id="addDish">
+        <label>Nome<input type="text" id="f-name" required placeholder="Es. Parmigiana di melanzane"></label>
+        <div class="two">
+          <label>Tipo<select id="f-cat"><option value="primo">Primo (pranzo)</option><option value="secondo">Secondo (cena)</option><option value="contorno">Contorno</option></select></label>
+          <label>Base<select id="f-tag"></select></label>
+        </div>
+        <label>Ingredienti da comprare (separati da virgola)<textarea id="f-ing" rows="2" placeholder="melanzane, passata di pomodoro, mozzarella, parmigiano"></textarea></label>
+        <div class="two">
+          <label>Minuti in tutto<input type="text" inputmode="numeric" id="f-min" placeholder="20"></label>
+          <label>Cottura<select id="f-cottura"><option value="padella">Padella</option><option value="pentola">Pentola</option><option value="forno">Forno</option><option value="vapore">Vapore</option><option value="crudo">A crudo</option><option value="friggitrice">Friggitrice ad aria</option></select></label>
+        </div>
+        <label>Come si prepara (facoltativo)<input type="text" id="f-come" placeholder="Es. 200° per 12 minuti, girando a metà"></label>
+        <label class="check"><input type="checkbox" id="f-abit"> Lo facciamo già spesso</label>
+        <div><button class="btn primary small" type="submit">Salva piatto</button></div>
+      </form>
+    </details>
+    <ul class="dlist paper" id="dlist"></ul>
+  </section>
+  <div class="foot"><button class="linkbtn" data-act="logout">Esci da questo telefono</button></div>
+</div>
+
+<div class="gate" id="gate" hidden>
+  <div class="gate-card paper">
+    <h1>Cosa si mangia</h1>
+    <p class="hint">Il menu di casa e la spesa, condivisi con tutta la famiglia. Inserisci il codice di famiglia per entrare: su questo telefono te lo chiede una volta sola.</p>
+    <form id="gateForm">
+      <label class="label" for="gateCode">Codice di famiglia</label>
+      <input type="password" id="gateCode" autocomplete="current-password" autocapitalize="off" placeholder="Il codice che ti ha dato Andrea">
+      <button class="btn primary" id="gateBtn" type="submit">Entra</button>
+      <p class="gate-msg" id="gateMsg" role="status"></p>
+    </form>
+  </div>
+</div>
+<div class="backdrop" id="sheet" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheetBody"></div></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+const SEED = [{"id": "ragu", "name": "Pasta al ragù", "cat": "primo", "tag": "carne", "abit": true, "min": 15, "cottura": "pentola", "prep": "ragu", "come": "Il ragù si prepara la domenica (un'ora e mezza) in doppia dose; in settimana basta scaldarlo mentre cuoce la pasta.", "ing": ["pasta", "carne macinata", "passata di pomodoro", "cipolla", "carota", "sedano", "parmigiano"]}, {"id": "sugo", "name": "Pasta al pomodoro e basilico", "cat": "primo", "tag": "veg", "abit": true, "min": 15, "cottura": "padella", "come": "Aglio in camicia nell'olio, passata o pomodorini 10 minuti, basilico fresco a fuoco spento.", "ing": ["pasta", "passata di pomodoro", "basilico", "parmigiano"]}, {"id": "gricia", "name": "Gricia", "cat": "primo", "tag": "salumi", "abit": true, "min": 15, "cottura": "padella", "come": "Guanciale in padella senza olio finché è croccante, poi pecorino, pepe e acqua di cottura.", "ing": ["pasta", "guanciale", "pecorino"]}, {"id": "olioparm", "name": "Pasta olio e parmigiano", "cat": "primo", "tag": "veg", "abit": true, "min": 10, "cottura": "pentola", "come": "Olio extravergine buono, parmigiano abbondante e una macinata di pepe.", "ing": ["pasta", "parmigiano"]}, {"id": "amatriciana", "name": "Amatriciana", "cat": "primo", "tag": "salumi", "abit": false, "min": 20, "cottura": "padella", "come": "Guanciale rosolato senza olio, pelati 10 minuti, pecorino alla fine.", "ing": ["pasta", "guanciale", "pelati", "pecorino"]}, {"id": "carbonara", "name": "Carbonara", "cat": "primo", "tag": "salumi", "abit": false, "min": 15, "cottura": "padella", "come": "Guanciale croccante; tuorli e pecorino mescolati fuori dal fuoco con un po' d'acqua di cottura.", "ing": ["pasta", "guanciale", "uova", "pecorino"]}, {"id": "carbozucchine", "name": "Carbonara di zucchine", "cat": "primo", "tag": "uova", "abit": false, "side": true, "min": 20, "cottura": "padella", "come": "Zucchine a julienne saltate in padella, poi uova e parmigiano sbattuti, mantecati fuori dal fuoco.", "ing": ["pasta", "zucchine", "uova", "parmigiano"]}, {"id": "cacioepepe", "name": "Cacio e pepe", "cat": "primo", "tag": "formaggi", "abit": false, "min": 15, "cottura": "pentola", "come": "Pecorino sciolto con acqua di cottura tiepida e pepe tostato in padella.", "ing": ["pasta", "pecorino"]}, {"id": "pesto", "name": "Pasta al pesto fatto in casa", "cat": "primo", "tag": "veg", "abit": false, "min": 15, "cottura": "crudo", "come": "Basilico, pinoli, parmigiano, pecorino, aglio e olio frullati mentre cuoce la pasta.", "ing": ["pasta", "basilico", "pinoli", "parmigiano", "pecorino", "aglio"]}, {"id": "pastatonno", "name": "Pasta al tonno e limone", "cat": "primo", "tag": "pesce", "abit": false, "scatola": true, "min": 15, "cottura": "padella", "come": "Tonno sgocciolato, scorza di limone, prezzemolo e un po' d'acqua di cottura.", "ing": ["pasta", "tonno in scatola", "limone", "prezzemolo"]}, {"id": "pastasalmone", "name": "Pasta salmone e zucchine", "cat": "primo", "tag": "pesce", "abit": false, "side": true, "min": 20, "cottura": "padella", "come": "Zucchine a cubetti in padella, poi il salmone a pezzetti per 3 minuti, prezzemolo e limone.", "ing": ["pasta", "salmone", "zucchine", "limone", "prezzemolo"]}, {"id": "pastazucchine", "name": "Pasta zucchine, menta e pecorino", "cat": "primo", "tag": "veg", "abit": false, "side": true, "min": 20, "cottura": "padella", "come": "Zucchine a rondelle ben dorate in padella, menta fresca e pecorino alla fine.", "ing": ["pasta", "zucchine", "menta", "pecorino"]}, {"id": "pastabroccoli", "name": "Pasta con broccoli, aglio e peperoncino", "cat": "primo", "tag": "veg", "abit": false, "side": true, "min": 20, "cottura": "pentola", "come": "Broccoli cotti nella stessa acqua della pasta, poi saltati con aglio, peperoncino e pangrattato tostato.", "ing": ["pasta", "broccoli", "aglio", "peperoncino", "pangrattato"]}, {"id": "pastazucca", "name": "Pasta con crema di zucca e rosmarino", "cat": "primo", "tag": "veg", "abit": false, "side": true, "min": 25, "cottura": "pentola", "come": "Zucca a cubetti stufata con cipolla e rosmarino, frullata e mantecata con parmigiano.", "ing": ["pasta", "zucca", "cipolla", "rosmarino", "parmigiano"]}, {"id": "pastafunghi", "name": "Pasta ai funghi e prezzemolo", "cat": "primo", "tag": "veg", "abit": false, "side": true, "min": 20, "cottura": "padella", "come": "Funghi champignon trifolati con aglio e prezzemolo, un cucchiaio di parmigiano.", "ing": ["pasta", "funghi champignon", "aglio", "prezzemolo", "parmigiano"]}, {"id": "gnocchi", "name": "Gnocchi al pomodoro e mozzarella", "cat": "primo", "tag": "formaggi", "abit": false, "min": 15, "cottura": "padella", "come": "Gnocchi freschi lessati 2 minuti, saltati nel sugo con mozzarella a cubetti che fila.", "ing": ["gnocchi", "passata di pomodoro", "mozzarella", "basilico"]}, {"id": "pastapatate", "name": "Pasta e patate con provola", "cat": "primo", "tag": "veg", "abit": false, "min": 30, "cottura": "pentola", "come": "Patate a cubetti con cipolla, acqua fino a coprire, pasta cotta dentro e provola a fine cottura.", "ing": ["pasta", "patate", "cipolla", "provola", "parmigiano"]}, {"id": "risottozucca", "name": "Risotto alla zucca", "cat": "primo", "tag": "veg", "abit": false, "side": true, "min": 35, "cottura": "pentola", "come": "Zucca a cubetti con cipolla, riso tostato e brodo un mestolo alla volta, mantecato con parmigiano.", "ing": ["riso", "zucca", "cipolla", "parmigiano", "dado"]}, {"id": "minestrone", "name": "Minestrone di verdure di stagione", "cat": "primo", "tag": "veg", "abit": false, "side": true, "min": 15, "cottura": "pentola", "prep": "minestrone", "come": "Si prepara la domenica (45 minuti) con verdure fresche a cubetti; in settimana si scalda e si aggiunge pasta corta o riso.", "ing": ["zucca", "carote", "patate", "zucchine", "sedano", "cipolla", "cavolo nero", "pasta", "parmigiano"]}, {"id": "pastaefagioli", "name": "Pasta e fagioli", "cat": "primo", "tag": "legumi", "abit": false, "min": 20, "cottura": "pentola", "prep": "fagioli", "come": "Con i fagioli cotti la domenica: soffritto, passata, fagioli e un po' della loro acqua, pasta cotta dentro.", "ing": ["fagioli secchi", "pasta", "passata di pomodoro", "cipolla", "rosmarino"]}, {"id": "pastaececi", "name": "Pasta e ceci al rosmarino", "cat": "primo", "tag": "legumi", "abit": false, "min": 20, "cottura": "pentola", "prep": "ceci", "come": "Con i ceci cotti la domenica: aglio e rosmarino, metà ceci frullati per la cremosità, pasta cotta dentro.", "ing": ["ceci secchi", "pasta", "aglio", "rosmarino"]}, {"id": "pastalenticchie", "name": "Pasta e lenticchie rosse", "cat": "primo", "tag": "legumi", "abit": false, "min": 20, "cottura": "pentola", "come": "Le lenticchie rosse decorticate non vanno in ammollo e cuociono in 15 minuti: soffritto, lenticchie, acqua, poi la pasta.", "ing": ["lenticchie rosse decorticate", "pasta", "cipolla", "carota", "sedano"]}, {"id": "vellutatalenticchie", "name": "Vellutata di lenticchie rosse e carote", "cat": "primo", "tag": "legumi", "abit": false, "side": true, "min": 25, "cottura": "pentola", "come": "Lenticchie rosse, carote e cipolla in brodo per 20 minuti, frullate; crostini di pane e un filo d'olio.", "ing": ["lenticchie rosse decorticate", "carote", "cipolla", "pane"]}, {"id": "lenticchie", "name": "Lenticchie in umido", "cat": "secondo", "tag": "legumi", "abit": true, "min": 15, "cottura": "pentola", "prep": "lenticchie", "come": "Con le lenticchie cotte la domenica: soffritto, un po' di passata, 10 minuti di cottura.", "ing": ["lenticchie secche", "cipolla", "carota", "sedano", "passata di pomodoro"]}, {"id": "fagioli", "name": "Fagioli all'olio con cipolla rossa", "cat": "secondo", "tag": "legumi", "abit": true, "min": 10, "cottura": "crudo", "prep": "fagioli", "come": "Fagioli cotti la domenica, tiepidi, con cipolla rossa sottile, olio buono, sale e pepe.", "ing": ["fagioli secchi", "cipolla rossa"]}, {"id": "hummus", "name": "Hummus con verdure crude e pane", "cat": "secondo", "tag": "legumi", "abit": false, "side": true, "min": 10, "cottura": "crudo", "prep": "ceci", "come": "Ceci cotti la domenica frullati con limone, aglio, olio e un po' della loro acqua. Carote e sedano a bastoncini.", "ing": ["ceci secchi", "limone", "aglio", "carote", "sedano", "pane"]}, {"id": "cecispinaci", "name": "Ceci e spinaci con paprika", "cat": "secondo", "tag": "legumi", "abit": false, "side": true, "min": 15, "cottura": "padella", "prep": "ceci", "come": "Aglio e paprika nell'olio, ceci cotti la domenica e spinaci in padella per 8 minuti.", "ing": ["ceci secchi", "spinaci", "aglio", "paprika"]}, {"id": "lenticchiecurry", "name": "Lenticchie rosse al curry con riso", "cat": "secondo", "tag": "legumi", "abit": false, "min": 25, "cottura": "pentola", "come": "Cipolla, curry e un po' di passata, lenticchie rosse e acqua per 15 minuti; riso basmati a parte.", "ing": ["lenticchie rosse decorticate", "cipolla", "curry", "passata di pomodoro", "riso"]}, {"id": "zuppalegumi", "name": "Zuppa di legumi e cavolo nero", "cat": "secondo", "tag": "legumi", "abit": false, "side": true, "min": 25, "cottura": "pentola", "prep": "fagioli", "come": "Soffritto, cavolo nero a striscioline, fagioli cotti la domenica e brodo per 15 minuti; pane tostato.", "ing": ["fagioli secchi", "cavolo nero", "cipolla", "carota", "sedano", "pane"]}, {"id": "uccelletto", "name": "Fagioli all'uccelletto con salsiccia", "cat": "secondo", "tag": "legumi", "abit": false, "min": 25, "cottura": "padella", "prep": "fagioli", "come": "Salsiccia sbriciolata, pelati e salvia, poi i fagioli cotti la domenica per 10 minuti.", "ing": ["fagioli secchi", "salsiccia", "pelati", "salvia"]}, {"id": "pollo", "name": "Petti di pollo al limone e rosmarino", "cat": "secondo", "tag": "pollo", "abit": true, "min": 15, "cottura": "padella", "come": "Fette sottili sulla piastra ben calda, 3-4 minuti per lato, poi limone e rosmarino.", "ing": ["petti di pollo", "limone", "rosmarino"]}, {"id": "bocconcini", "name": "Bocconcini di pollo al limone", "cat": "secondo", "tag": "pollo", "abit": false, "min": 20, "cottura": "padella", "come": "Pollo a cubetti infarinato, dorato in padella e sfumato con succo di limone e un po' d'acqua.", "ing": ["petti di pollo", "farina", "limone"]}, {"id": "pollocurry", "name": "Pollo al curry con riso", "cat": "secondo", "tag": "pollo", "abit": false, "min": 25, "cottura": "padella", "come": "Cipolla, pollo a cubetti, curry e un po' di latte o yogurt per 15 minuti; riso basmati a parte.", "ing": ["petti di pollo", "cipolla", "curry", "yogurt bianco", "riso"]}, {"id": "pollovapore", "name": "Pollo al vapore con verdure", "cat": "secondo", "tag": "pollo", "abit": false, "side": true, "min": 20, "cottura": "vapore", "come": "Funzione vapore della friggitrice: pollo a fette e verdure a bastoncini insieme per 15-18 minuti; olio e limone a crudo.", "ing": ["petti di pollo", "carote", "zucchine", "limone"]}, {"id": "cotoletta", "name": "Cotoletta di pollo al forno", "cat": "secondo", "tag": "pollo", "abit": false, "min": 25, "cottura": "forno", "come": "Uovo e pangrattato con parmigiano, un filo d'olio sopra; forno a 200° per 15 minuti girandola a metà.", "ing": ["petti di pollo", "uova", "pangrattato", "parmigiano"]}, {"id": "spiedini", "name": "Spiedini di pollo e peperoni", "cat": "secondo", "tag": "pollo", "abit": false, "side": true, "min": 20, "cottura": "friggitrice", "come": "Cubetti di pollo alternati a peperoni e cipolla; friggitrice a 200° per 12-14 minuti.", "ing": ["petti di pollo", "peperoni", "cipolla"]}, {"id": "straccetti", "name": "Straccetti di pollo con rucola e grana", "cat": "secondo", "tag": "pollo", "abit": false, "side": true, "min": 15, "cottura": "padella", "come": "Striscioline di pollo in padella 5 minuti, servite calde su rucola, pomodorini e scaglie di grana.", "ing": ["petti di pollo", "rucola", "pomodorini", "grana"]}, {"id": "tacchino", "name": "Scaloppine di tacchino ai funghi", "cat": "secondo", "tag": "pollo", "abit": false, "side": true, "min": 20, "cottura": "padella", "come": "Fettine infarinate dorate in padella, poi funghi trifolati e un po' di brodo per 5 minuti.", "ing": ["fettine di tacchino", "funghi champignon", "farina", "prezzemolo"]}, {"id": "pollopatate", "name": "Pollo e patate al forno", "cat": "secondo", "tag": "pollo", "abit": false, "side": true, "min": 50, "cottura": "forno", "come": "Cosce e patate a spicchi con rosmarino, aglio e olio; forno a 200° per 40-45 minuti.", "ing": ["cosce di pollo", "patate", "rosmarino", "aglio"]}, {"id": "cacciatora", "name": "Pollo alla cacciatora", "cat": "secondo", "tag": "pollo", "abit": false, "min": 50, "cottura": "pentola", "come": "Pollo a pezzi rosolato, poi pomodoro, olive, rosmarino e aglio, 40 minuti a fuoco basso.", "ing": ["cosce di pollo", "pelati", "olive", "rosmarino", "aglio"]}, {"id": "fettina", "name": "Fettina in padella", "cat": "secondo", "tag": "carne", "abit": true, "min": 10, "cottura": "padella", "come": "Padella caldissima, un minuto per lato, sale alla fine.", "ing": ["fettine di manzo"]}, {"id": "tagliata", "name": "Tagliata con rucola e grana", "cat": "secondo", "tag": "carne", "abit": false, "side": true, "min": 15, "cottura": "padella", "come": "Controfiletto su piastra rovente 3-4 minuti per lato, riposo 5 minuti, a fette su rucola e grana.", "ing": ["controfiletto di manzo", "rucola", "grana"]}, {"id": "hamburger", "name": "Hamburger con cipolle caramellate", "cat": "secondo", "tag": "carne", "abit": false, "min": 20, "cottura": "padella", "come": "Cipolle stufate a fuoco basso con un pizzico di zucchero; hamburger in padella 4 minuti per lato.", "ing": ["carne macinata", "cipolla"]}, {"id": "scaloppine", "name": "Scaloppine al limone", "cat": "secondo", "tag": "carne", "abit": false, "min": 20, "cottura": "padella", "come": "Fettine infarinate in padella con poco burro, sfumate con il succo di limone.", "ing": ["fettine di vitello", "farina", "limone", "burro"]}, {"id": "polpette", "name": "Polpette al sugo", "cat": "secondo", "tag": "carne", "abit": false, "min": 45, "cottura": "pentola", "come": "Impasta, forma le polpette e cuocile 25 minuti direttamente nella passata; il sugo condisce la pasta del giorno dopo.", "ing": ["carne macinata", "uova", "pangrattato", "parmigiano", "passata di pomodoro"]}, {"id": "spezzatino", "name": "Spezzatino con patate", "cat": "secondo", "tag": "carne", "abit": false, "side": true, "min": 90, "cottura": "pentola", "come": "Carne a cubetti rosolata, soffritto, un po' di pomodoro e brodo; patate negli ultimi 30 minuti.", "ing": ["spezzatino di manzo", "patate", "cipolla", "carota", "sedano", "passata di pomodoro"]}, {"id": "salsicciacicoria", "name": "Salsicce e cicoria ripassata", "cat": "secondo", "tag": "salumi", "abit": false, "side": true, "min": 30, "cottura": "padella", "come": "Salsicce in padella con un dito d'acqua per 15 minuti; cicoria lessata e ripassata con aglio e peperoncino.", "ing": ["salsiccia", "cicoria", "aglio", "peperoncino"]}, {"id": "frittata", "name": "Frittata al parmigiano", "cat": "secondo", "tag": "uova", "abit": true, "min": 15, "cottura": "padella", "come": "Uova, parmigiano e pepe; padella antiaderente a fuoco medio, girata con un piatto.", "ing": ["uova", "parmigiano"]}, {"id": "frittatazucchine", "name": "Frittata di zucchine e menta", "cat": "secondo", "tag": "uova", "abit": false, "side": true, "min": 20, "cottura": "padella", "come": "Zucchine a rondelle dorate in padella, poi le uova sbattute con menta e parmigiano.", "ing": ["uova", "zucchine", "menta", "parmigiano"]}, {"id": "frittatapatate", "name": "Frittata di patate e cipolle", "cat": "secondo", "tag": "uova", "abit": false, "min": 30, "cottura": "padella", "come": "Patate a fettine sottili e cipolla stufate in padella 15 minuti, poi le uova; cottura lenta con coperchio.", "ing": ["uova", "patate", "cipolla"]}, {"id": "uovapomodoro", "name": "Uova al pomodoro", "cat": "secondo", "tag": "uova", "abit": false, "min": 15, "cottura": "padella", "come": "Passata con basilico 5 minuti, poi le uova dentro con il coperchio per 6-7 minuti; pane per la scarpetta.", "ing": ["uova", "passata di pomodoro", "basilico", "pane"]}, {"id": "uovaspinaci", "name": "Uova strapazzate con spinaci", "cat": "secondo", "tag": "uova", "abit": false, "side": true, "min": 10, "cottura": "padella", "come": "Spinaci saltati 3 minuti, poi le uova mescolate piano con parmigiano: morbide, non asciutte.", "ing": ["uova", "spinaci", "parmigiano"]}, {"id": "uovasode", "name": "Uova sode, patate e fagiolini", "cat": "secondo", "tag": "uova", "abit": false, "side": true, "min": 20, "cottura": "vapore", "come": "Patate e fagiolini al vapore 15 minuti, uova sode 9 minuti; tutto condito con olio, limone e prezzemolo.", "ing": ["uova", "patate", "fagiolini", "limone", "prezzemolo"]}, {"id": "uovafunghi", "name": "Uova al forno con funghi", "cat": "secondo", "tag": "uova", "abit": false, "side": true, "min": 25, "cottura": "forno", "come": "Funghi a fette in una pirofila con olio e sale, uova sopra, parmigiano; forno a 190° per 15 minuti.", "ing": ["uova", "funghi champignon", "parmigiano", "prezzemolo"]}, {"id": "insalatatonno", "name": "Insalatona con tonno", "cat": "secondo", "tag": "pesce", "abit": true, "side": true, "scatola": true, "min": 10, "cottura": "crudo", "come": "Insalata, pomodori, olive e tonno sgocciolato; olio e limone.", "ing": ["tonno in scatola", "insalata", "pomodori", "olive"]}, {"id": "salmone", "name": "Salmone al forno con erbe e limone", "cat": "secondo", "tag": "pesce", "abit": false, "min": 20, "cottura": "forno", "come": "Trancio con fettine di limone, prezzemolo e un filo d'olio; forno a 200° per 12-15 minuti.", "ing": ["salmone", "limone", "prezzemolo"]}, {"id": "cartoccio", "name": "Orata al cartoccio con pomodorini", "cat": "secondo", "tag": "pesce", "abit": false, "side": true, "min": 25, "cottura": "forno", "come": "Filetti su carta forno con pomodorini, olive e origano, chiusi a pacchetto; forno a 200° per 15 minuti.", "ing": ["filetti di orata", "pomodorini", "olive", "origano"]}, {"id": "merluzzo", "name": "Merluzzo con pomodorini e olive", "cat": "secondo", "tag": "pesce", "abit": false, "side": true, "min": 20, "cottura": "padella", "come": "Pomodorini e olive in padella 5 minuti, poi i filetti con il coperchio per 8 minuti; prezzemolo.", "ing": ["filetti di merluzzo", "pomodorini", "olive", "prezzemolo"]}, {"id": "pescevapore", "name": "Pesce al vapore con zucchine", "cat": "secondo", "tag": "pesce", "abit": false, "side": true, "min": 20, "cottura": "vapore", "come": "Funzione vapore: filetti e zucchine a rondelle per 12-15 minuti; olio, limone e prezzemolo a crudo.", "ing": ["filetti di merluzzo", "zucchine", "limone", "prezzemolo"]}, {"id": "gamberi", "name": "Gamberi aglio, prezzemolo e limone", "cat": "secondo", "tag": "pesce", "abit": false, "min": 15, "cottura": "padella", "come": "Gamberi sgusciati (anche surgelati) 3-4 minuti in padella con aglio, poi limone e prezzemolo.", "ing": ["gamberi surgelati", "aglio", "prezzemolo", "limone"]}, {"id": "platessa", "name": "Filetti di platessa al limone", "cat": "secondo", "tag": "pesce", "abit": false, "min": 10, "cottura": "padella", "come": "Pesce delicato, piace anche a chi non ama il pesce: filetti in padella con olio 3 minuti per lato, limone e prezzemolo.", "ing": ["filetti di platessa", "limone", "prezzemolo"]}, {"id": "caprese", "name": "Caprese", "cat": "secondo", "tag": "formaggi", "abit": true, "side": true, "min": 5, "cottura": "crudo", "come": "Mozzarella e pomodori a fette, basilico, olio a crudo.", "ing": ["mozzarella", "pomodori", "basilico"]}, {"id": "piadina", "name": "Piadina stracchino e rucola", "cat": "secondo", "tag": "formaggi", "abit": false, "side": true, "min": 10, "cottura": "padella", "come": "Piadina scaldata in padella, stracchino, rucola e pomodorini.", "ing": ["piadine", "stracchino", "rucola", "pomodorini"]}, {"id": "tortasalata", "name": "Torta salata ricotta e spinaci", "cat": "secondo", "tag": "formaggi", "abit": false, "side": true, "min": 45, "cottura": "forno", "come": "Spinaci strizzati con ricotta, uovo e parmigiano nella sfoglia; forno a 180° per 30 minuti.", "ing": ["pasta sfoglia", "ricotta", "spinaci", "uova", "parmigiano"]}, {"id": "pizza", "name": "Pizza (in casa o d'asporto)", "cat": "secondo", "tag": "pizza", "abit": false, "side": true, "min": 20, "cottura": "forno", "come": "La serata libera della settimana.", "ing": ["mozzarella", "passata di pomodoro", "farina"]}, {"id": "insalata", "name": "Insalata verde", "cat": "contorno", "tag": "veg", "abit": true, "min": 5, "cottura": "crudo", "ing": ["insalata"]}, {"id": "pomodori", "name": "Pomodori in insalata", "cat": "contorno", "tag": "veg", "abit": true, "min": 5, "cottura": "crudo", "ing": ["pomodori", "basilico"]}, {"id": "cicoria", "name": "Cicoria ripassata", "cat": "contorno", "tag": "veg", "abit": true, "min": 20, "cottura": "padella", "come": "Comprala già pulita; lessata o al vapore, poi ripassata con aglio e peperoncino.", "ing": ["cicoria", "aglio", "peperoncino"]}, {"id": "finocchi", "name": "Finocchi e arance", "cat": "contorno", "tag": "veg", "abit": false, "min": 5, "cottura": "crudo", "come": "Finocchi a fette sottili, spicchi d'arancia, olive nere e olio.", "ing": ["finocchi", "arance", "olive"]}, {"id": "spinaci", "name": "Spinaci al burro e parmigiano", "cat": "contorno", "tag": "veg", "abit": false, "min": 10, "cottura": "padella", "come": "Spinaci lavati direttamente in padella per 5 minuti, una noce di burro e parmigiano.", "ing": ["spinaci", "burro", "parmigiano"]}, {"id": "zucchine", "name": "Zucchine trifolate", "cat": "contorno", "tag": "veg", "abit": false, "min": 15, "cottura": "padella", "come": "A rondelle con aglio e prezzemolo, fuoco vivace per restare croccanti.", "ing": ["zucchine", "aglio", "prezzemolo"]}, {"id": "funghi", "name": "Funghi trifolati", "cat": "contorno", "tag": "veg", "abit": false, "min": 15, "cottura": "padella", "come": "Champignon a fette con aglio e prezzemolo, 10 minuti a fuoco vivace.", "ing": ["funghi champignon", "aglio", "prezzemolo"]}, {"id": "cavolonero", "name": "Cavolo nero ripassato", "cat": "contorno", "tag": "veg", "abit": false, "min": 15, "cottura": "padella", "come": "Foglie senza costa a striscioline, sbollentate 3 minuti e ripassate con aglio e olio.", "ing": ["cavolo nero", "aglio"]}, {"id": "carote", "name": "Carote glassate al miele", "cat": "contorno", "tag": "veg", "abit": false, "min": 15, "cottura": "padella", "come": "Rondelle in padella con un po' d'acqua, olio e un cucchiaino di miele fino a che si asciuga.", "ing": ["carote", "miele"]}, {"id": "peperoni", "name": "Peperonata leggera", "cat": "contorno", "tag": "veg", "abit": false, "min": 30, "cottura": "padella", "come": "Peperoni e cipolla a falde, stufati con un po' di pomodoro per 25 minuti.", "ing": ["peperoni", "cipolla", "passata di pomodoro"]}, {"id": "fagiolini", "name": "Fagiolini al vapore", "cat": "contorno", "tag": "veg", "abit": false, "min": 15, "cottura": "vapore", "come": "Funzione vapore per 12 minuti; olio e limone a crudo.", "ing": ["fagiolini", "limone"]}, {"id": "broccoli", "name": "Broccoli al vapore con limone", "cat": "contorno", "tag": "veg", "abit": false, "min": 15, "cottura": "vapore", "come": "Funzione vapore per 10-12 minuti; olio, limone e un pizzico di peperoncino.", "ing": ["broccoli", "limone"]}, {"id": "zucca", "name": "Zucca al forno con rosmarino", "cat": "contorno", "tag": "veg", "abit": false, "min": 35, "cottura": "forno", "come": "A spicchi con buccia, rosmarino, sale e olio; forno a 200° per 25-30 minuti.", "ing": ["zucca", "rosmarino"]}, {"id": "cavolfiore", "name": "Cavolfiore al forno con parmigiano", "cat": "contorno", "tag": "veg", "abit": false, "min": 30, "cottura": "forno", "come": "Cimette crude in teglia con olio, sale e parmigiano; forno a 200° per 25 minuti.", "ing": ["cavolfiore", "parmigiano"]}, {"id": "patateforno", "name": "Patate croccanti in friggitrice", "cat": "contorno", "tag": "veg", "abit": false, "min": 25, "cottura": "friggitrice", "come": "A spicchi con rosmarino e un cucchiaio d'olio, 200° per 20 minuti.", "ing": ["patate", "rosmarino"]}, {"id": "verdurefriggitrice", "name": "Verdure miste croccanti in friggitrice", "cat": "contorno", "tag": "veg", "abit": false, "min": 20, "cottura": "friggitrice", "come": "Zucchine, peperoni e cipolla a pezzi con un filo d'olio; 200° per 15 minuti.", "ing": ["zucchine", "peperoni", "cipolla"]}];
+const REP = {
+  "Frutta e verdura":["cipolla","cipolla rossa","carota","carote","cavolfiore","cavolo nero","sedano","basilico","menta","prezzemolo","rosmarino","salvia","zucchine","patate","broccoli","zucca","limone","pomodori","pomodorini","insalata","rucola","cicoria","fagiolini","finocchi","spinaci","aglio","arance","peperoni","funghi champignon"],
+  "Carne":["carne macinata","guanciale","fettine di manzo","fettine di vitello","fettine di tacchino","controfiletto di manzo","spezzatino di manzo","petti di pollo","cosce di pollo","salsiccia"],
+  "Pesce":["filetti di merluzzo","filetti di orata","filetti di platessa","salmone"],
+  "Latticini e uova":["parmigiano","grana","pecorino","uova","mozzarella","ricotta","burro","pasta sfoglia","stracchino","provola","yogurt bianco","gnocchi"],
+  "Surgelati":["gamberi surgelati"],
+  "Pane":["pane","piadine"],
+  "Dispensa":["pasta","riso","passata di pomodoro","pelati","tonno in scatola","ceci secchi","fagioli secchi","lenticchie secche","lenticchie rosse decorticate","farina di ceci","farina","pangrattato","dado","peperoncino","curry","paprika","origano","olive","miele","pinoli"]
+};
+const REP_OF = {}; for (const [g, list] of Object.entries(REP)) for (const i of list) REP_OF[i] = g;
+const GROUPS = ["Frutta e verdura","Carne","Pesce","Latticini e uova","Surgelati","Pane","Altro","Dispensa"];
+const TAGS = {legumi:"Legumi",pesce:"Pesce",carne:"Carne rossa",salumi:"Salumi",pollo:"Carne bianca",uova:"Uova",formaggi:"Formaggi",veg:"Verdure",pizza:"Pizza"};
+const DAYS = ["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
+const DSHORT = ["Lun","Mar","Mer","Gio","Ven","Sab","Dom"];
+const MESI = ["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
+const FUORI = "__fuori";
+const KEYS = []; for (let d = 0; d < 7; d++) KEYS.push(d + "p", d + "c");
+
+const S = { dishes: {}, plan: null, spesa: { week: null, checked: {}, extra: [] }, tab: "menu", filter: "primo", mode: "loading", sheet: null, q: "", readOnly: false };
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s).trim().toLowerCase();
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const iso = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+const parseISO = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); };
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+function mondayFor(date) { const d = new Date(date.getFullYear(), date.getMonth(), date.getDate()); const wd = (d.getDay()+6)%7; if (wd >= 5) d.setDate(d.getDate() + (7-wd)); else d.setDate(d.getDate() - wd); return d; }
+const fmt = d => d.getDate() + " " + MESI[d.getMonth()];
+function shuffle(a) { a = a.slice(); for (let i = a.length-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+function wpick(items, w) { const tot = items.reduce((s,x) => s + w(x), 0); let r = Math.random()*tot; for (const x of items) { r -= w(x); if (r <= 0) return x; } return items[items.length-1]; }
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => t.hidden = true, 2200); }
+const active = () => Object.values(S.dishes).filter(d => !d.off);
+const tagHTML = t => t && TAGS[t] ? `<span class="tag" style="--c:var(--t-${t})">${TAGS[t]}</span>` : "";
+const lockSVG = `<svg class="lock" viewBox="0 0 16 16" aria-label="Bloccato" role="img"><rect x="3" y="7" width="10" height="7" rx="1.5" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>`;
+
+/* ---------- storage (Netlify) ---------- */
+const API = "/api/state";
+const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+let CODE = lsGet("csm:code") || "";
+let VERSION = null;
+const pending = {}, running = {};
+let spPending = false;
+async function api(method, body, qs) {
+  const r = await fetch(API + (qs || ""), {
+    method, cache: "no-store",
+    headers: body ? { "x-family-code": CODE, "content-type": "application/json" } : { "x-family-code": CODE },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  let data = null; try { data = await r.json(); } catch (e) {}
+  if (r.status === 401) { const e = new Error("code"); e.code = "code"; throw e; }
+  if (!r.ok) { const e = new Error("http"); e.code = (data && data.error) || "http"; e.status = r.status; e.info = data; throw e; }
+  return data;
+}
+function setOnline(ok) {
+  if (S.mode === "locked") return;
+  const m = ok ? "online" : "offline";
+  if (S.mode !== m) { S.mode = m; renderHeader(); }
+}
+let cacheTimer;
+function cacheState() {
+  clearTimeout(cacheTimer);
+  cacheTimer = setTimeout(() => lsSet("csm:cache", JSON.stringify({ dishes: S.dishes, plan: S.plan, spesa: S.spesa })), 300);
+}
+function save(path, data) {
+  if (S.mode === "loading" || S.mode === "locked") return;
+  pending[path] = { op: "set", data }; cacheState();
+  if (!running[path]) flush(path);
+}
+function removeDoc(path) {
+  if (S.mode === "locked") return;
+  pending[path] = { op: "delete" }; cacheState();
+  if (!running[path]) flush(path);
+}
+async function flush(path) {
+  running[path] = true;
+  while (pending[path]) {
+    const job = pending[path]; pending[path] = null;
+    try {
+      await api("POST", { op: job.op, path, data: job.data });
+      VERSION = null; // la prossima lettura prende tutto, anche le modifiche degli altri
+      setOnline(true);
+    } catch (e) {
+      if (e.code === "code") { lock("Il codice di famiglia è cambiato: inseriscilo di nuovo."); break; }
+      if (e.status && e.status >= 400 && e.status < 500) { toast(e.code === "quota" ? "Troppi piatti: eliminane qualcuno" : "Modifica non salvata"); continue; }
+      setOnline(false); // rete assente o server non raggiungibile: riprova tra poco
+      await new Promise(r => setTimeout(r, 4000));
+      if (!pending[path]) pending[path] = job;
+    }
+  }
+  running[path] = false;
+  if (!anyPending()) setTimeout(() => refresh(), 1200);
+}
+const anyPending = () => spPending || Object.values(running).some(Boolean) || Object.values(pending).some(Boolean);
+const savePlan = () => save("menu/settimana", S.plan);
+let spTimer; const saveSpesa = () => { spPending = true; clearTimeout(spTimer); spTimer = setTimeout(() => { spPending = false; save("spesa/lista", S.spesa); }, 350); };
+function saveDish(d) { S.dishes[d.id] = d; save("piatti/" + d.id, d); }
+
+/* ---------- generator ---------- */
+const CAPS = { carne: 1, salumi: 1, uova: 3, formaggi: 3, pizza: 1, pollo: 3, pesce: 3 };
+const MAX_FRIGGITRICE = 2, MAX_SCATOLA = 2;
+const PREP = {
+  ceci: ["Ceci secchi", "ammollo dal sabato sera, poi un'ora in pentola (20 minuti in pentola a pressione)"],
+  fagioli: ["Fagioli secchi", "ammollo dal sabato sera, poi un'ora e mezza in pentola (25 minuti in pentola a pressione)"],
+  lenticchie: ["Lenticchie secche", "niente ammollo, 30 minuti in pentola"],
+  ragu: ["Ragù", "un'ora e mezza a fuoco basso; fanne doppia dose e congela metà"],
+  minestrone: ["Minestrone", "45 minuti; in frigo si conserva 3 giorni"]
+};
+function extraCounts(slots, skipKey) {
+  let ff = 0, sc = 0;
+  for (const k of KEYS) { if (k === skipKey) continue; const s = slots[k]; if (!s) continue;
+    for (const id of [s.id, s.side]) { const d = S.dishes[id]; if (!d) continue; if (d.cottura === "friggitrice") ff++; if (d.scatola) sc++; } }
+  return { ff, sc };
+}
+const FAST = 25;
+function candidates(kind) {
+  const a = active();
+  if (kind === "p") return a.filter(d => d.cat === "primo" || (d.cat === "secondo" && d.tag === "legumi"));
+  if (kind === "c") return a.filter(d => d.cat === "secondo");
+  return a.filter(d => d.cat === "contorno");
+}
+function tagCounts(slots, skipKey) {
+  const c = {};
+  for (const k of KEYS) { if (k === skipKey) continue; const d = S.dishes[slots[k]?.id]; if (d) c[d.tag] = (c[d.tag] || 0) + 1; }
+  return c;
+}
+const isFastDay = (day) => (S.plan ? S.plan.veloce !== false : true) && day < 5;
+function pickDish(kind, target, day, isNew, slots, counts, prev, exclude, veloce) {
+  const all = candidates(kind).filter(d => kind !== "c" || d.tag !== "pizza" || target === "pizza");
+  const near = new Set([slots[(day-1) + kind]?.id, slots[(day+1) + kind]?.id]);
+  const tc = tagCounts(slots, day + kind), ex = extraCounts(slots, day + kind);
+  const ok = d => !(counts[d.id] || 0) && !near.has(d.id) && d.id !== exclude;
+  const byTarget = d => !target || d.tag === target;
+  const capOk = d => (CAPS[d.tag] === undefined || (tc[d.tag] || 0) < CAPS[d.tag])
+    && !(d.cottura === "friggitrice" && ex.ff >= MAX_FRIGGITRICE) && !(d.scatola && ex.sc >= MAX_SCATOLA);
+  const fast = d => !(veloce && day < 5) || (d.min || 0) <= FAST;
+  const tries = [
+    d => ok(d) && byTarget(d) && capOk(d) && fast(d),
+    d => ok(d) && byTarget(d) && fast(d),
+    d => ok(d) && capOk(d) && fast(d),
+    d => ok(d) && capOk(d),
+    d => d.id !== exclude
+  ];
+  let list = [];
+  for (const t of tries) { list = all.filter(t); if (list.length) break; }
+  if (!list.length) return null;
+  if (isNew) { const nl = list.filter(d => !d.abit); if (nl.length) list = nl; }
+  else { const al = list.filter(d => d.abit); if (al.length) list = al; }
+  const d = wpick(list, x => (prev.has(x.id) ? .6 : 1) * (counts[x.id] ? .3 : 1));
+  counts[d.id] = (counts[d.id] || 0) + 1;
+  return d.id;
+}
+function pickSide(counts, day, veloce, exclude, slots, key) {
+  const all = candidates("s");
+  const sl = slots || (S.plan ? S.plan.slots : {});
+  const near = new Set([day + "p", day + "c", (day-1) + "c", (day+1) + "p"].filter(k => k !== key).map(k => sl[k]?.side).filter(Boolean));
+  const ex = extraCounts(slots || (S.plan ? S.plan.slots : {}), null);
+  const fast = d => !(veloce && day < 5) || (d.min || 0) <= FAST;
+  const capOk = d => !(d.cottura === "friggitrice" && ex.ff >= MAX_FRIGGITRICE);
+  let list = all.filter(d => (counts[d.id] || 0) < 2 && d.id !== exclude && !near.has(d.id) && fast(d) && capOk(d));
+  if (!list.length) list = all.filter(d => d.id !== exclude && capOk(d));
+  if (!list.length) list = all.filter(d => d.id !== exclude);
+  if (!list.length) return null;
+  const d = wpick(list, x => (x.abit ? 2 : 1) * (counts[x.id] ? .4 : 1));
+  counts[d.id] = (counts[d.id] || 0) + 1;
+  return d.id;
+}
+function generate(week, novita, prevIds, oldSlots, veloce) {
+  if (veloce === undefined) veloce = true;
+  const slots = {}, counts = {};
+  const prev = new Set(prevIds || []);
+  for (const k of KEYS) if (oldSlots && oldSlots[k] && oldSlots[k].lock) {
+    slots[k] = oldSlots[k];
+    for (const id of [slots[k].id, slots[k].side]) if (id) counts[id] = (counts[id] || 0) + 1;
+  }
+  const free = KEYS.filter(k => !slots[k]);
+  const pizzaOn = S.dishes.pizza && !S.dishes.pizza.off && !slots["5c"];
+  if (pizzaOn) { slots["5c"] = { id: "pizza" }; counts.pizza = 1; }
+  const novKeys = new Set(shuffle(free.filter(k => !(pizzaOn && k === "5c"))).slice(0, novita));
+  // Cena: 2 pesce, 2 carne bianca, 1 uova, 1 formaggi (o pizza il sabato), 1 libero
+  let tags = ["pesce","pollo","uova","uova","formaggi",null,null];
+  if (pizzaOn) tags.splice(tags.indexOf("formaggi"), 1);
+  for (const k of KEYS) if (k.endsWith("c") && slots[k] && slots[k].lock) { const i = tags.indexOf(S.dishes[slots[k].id]?.tag); if (i >= 0) tags.splice(i, 1); }
+  tags = shuffle(tags);
+  for (let d = 0; d < 7; d++) {
+    const k = d + "c"; if (slots[k]) continue;
+    slots[k] = { id: pickDish("c", tags.length ? tags.shift() : null, d, novKeys.has(k), slots, counts, prev, null, veloce) };
+  }
+  // Pranzo: legumi fino ad arrivare a 3, poi primi di verdure, 1 libero
+  const leg = KEYS.filter(k => slots[k] && S.dishes[slots[k].id]?.tag === "legumi").length;
+  const freeP = [0,1,2,3,4,5,6].filter(d => !slots[d + "p"]);
+  let pt = Array(Math.max(0, 3 - leg)).fill("legumi").concat([null]);
+  while (pt.length < freeP.length) pt.push("veg");
+  pt = shuffle(pt.slice(0, freeP.length));
+  freeP.forEach((d, i) => { const k = d + "p"; slots[k] = { id: pickDish("p", pt[i], d, novKeys.has(k), slots, counts, prev, null, veloce) }; });
+  for (const k of KEYS) { const s = slots[k]; if (s.id && S.dishes[s.id]?.tag === "pesce" && !s.noFish) s.noFish = pickNoFish(k, slots); }
+  // Una porzione di verdura a ogni pasto
+  for (const k of KEYS) {
+    const s = slots[k]; if (s.lock || !s.id || s.id === FUORI) continue;
+    if (!S.dishes[s.id]?.side) s.side = pickSide(counts, +k[0], veloce, null, slots, k);
+  }
+  return { week, novita, veloce, prev: prevIds || [], slots };
+}
+function hash(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function mainIds(slots, skipKey) { const u = new Set(); for (const k of KEYS) if (k !== skipKey && slots[k]?.id) u.add(slots[k].id); return u; }
+// Piatto veloce per chi non mangia pesce: a pranzo un primo semplice, a cena uova o formaggi
+function noFishOptions(k, slots) {
+  const sl = slots || S.plan.slots, used = mainIds(sl, null);
+  for (const kk of KEYS) if (kk !== k && sl[kk]?.noFish) used.add(sl[kk].noFish);
+  return candidates(k[1]).filter(d => (d.min || 0) <= 15 && !used.has(d.id) && d.tag !== "pesce" && d.tag !== "pizza"
+    && (k[1] === "p" ? d.cat === "primo" : (d.tag === "uova" || d.tag === "formaggi")));
+}
+function pickNoFish(k, slots) { const o = noFishOptions(k, slots); return o.length ? o[Math.floor(Math.random() * o.length)].id : null; }
+// Alternative con un tocco: stessa categoria (quindi stesso equilibrio), stabili durante la settimana
+function alternatives(k, n = 2) {
+  const s = S.plan.slots[k], d = S.dishes[s?.id]; if (!d || s.lock) return [];
+  const day = +k[0], kind = k[1], veloce = S.plan.veloce !== false;
+  const used = mainIds(S.plan.slots, k), ex = extraCounts(S.plan.slots, k), tc = tagCounts(S.plan.slots, k);
+  const pool = candidates(kind).filter(x => x.id !== d.id && !used.has(x.id) && x.tag !== "pizza"
+    && (!(veloce && day < 5) || (x.min || 0) <= FAST)
+    && !(x.cottura === "friggitrice" && ex.ff >= MAX_FRIGGITRICE) && !(x.scatola && ex.sc >= MAX_SCATOLA));
+  const byH = (a, b) => hash(S.plan.week + k + a.id) - hash(S.plan.week + k + b.id);
+  const same = pool.filter(x => x.tag === d.tag).sort(byH);
+  let out;
+  if (d.tag === "pesce") out = [same[0], pool.filter(x => x.tag !== "pesce" && (CAPS[x.tag] === undefined || (tc[x.tag] || 0) < CAPS[x.tag])).sort(byH)[0]];
+  else out = same.slice(0, n);
+  out = out.filter(Boolean);
+  if (out.length < n) out = out.concat(pool.filter(x => !out.includes(x) && x.tag !== d.tag && (CAPS[x.tag] === undefined || (tc[x.tag] || 0) < CAPS[x.tag])).sort(byH).slice(0, n - out.length));
+  return out;
+}
+function makeSlot(k, id, old) {
+  old = old || {}; const day = +k[0], d = S.dishes[id];
+  const slot = { id, lock: !!old.lock };
+  if (id !== FUORI && d && !d.side) slot.side = old.side || pickSide(countsExcept(k), day, S.plan.veloce !== false, null, null, k);
+  if (d && d.tag === "pesce") slot.noFish = (old.noFish && S.dishes[old.noFish]) ? old.noFish : pickNoFish(k);
+  return slot;
+}
+function slotIds(plan) { const ids = []; for (const k of KEYS) { const s = plan.slots[k]; if (s && s.id && s.id !== FUORI) { ids.push(s.id); if (s.side) ids.push(s.side); } } return ids; }
+function countsExcept(key) { const c = {}; for (const k of KEYS) if (k !== key) { const s = S.plan.slots[k]; if (s) for (const id of [s.id, s.side]) if (id) c[id] = (c[id]||0) + 1; } return c; }
+function balance() {
+  const c = {}; let meals = 0, veg = 0;
+  for (const k of KEYS) {
+    const s = S.plan.slots[k]; if (!s || !s.id || s.id === FUORI) continue;
+    meals++; const d = S.dishes[s.id]; if (!d) continue;
+    c[d.tag] = (c[d.tag] || 0) + 1;
+    if (d.side || (s.side && S.dishes[s.side])) veg++;
+  }
+  const n = t => c[t] || 0, ex = extraCounts(S.plan.slots, null);
+  const st = (v, lo, hi) => v < lo ? "poco" : v > hi ? "troppo" : "ok";
+  return [
+    ["Legumi", n("legumi"), "almeno 3", st(n("legumi"), 3, 99)],
+    ["Pesce", n("pesce"), "1–2 volte", st(n("pesce"), 1, 99)],
+    ["Carne bianca", n("pollo"), "circa 2", st(n("pollo"), 1, 3)],
+    ["Carne rossa", n("carne"), "massimo 1", st(n("carne"), 0, 1)],
+    ["Salumi", n("salumi"), "massimo 1", st(n("salumi"), 0, 1)],
+    ["Uova", n("uova"), "2–3 piatti", st(n("uova"), 2, 3)],
+    ["Formaggi", n("formaggi") + n("pizza"), "massimo 3", st(n("formaggi") + n("pizza"), 0, 3)],
+    ["Verdure", veg + "/" + meals, "a ogni pasto", veg >= meals ? "ok" : "poco"],
+    ["Friggitrice", ex.ff, "massimo 2", st(ex.ff, 0, MAX_FRIGGITRICE)],
+    ["Scatolame", ex.sc, "massimo 2", st(ex.sc, 0, MAX_SCATOLA)]
+  ];
+}
+
+/* ---------- shopping ---------- */
+function currentSpesa() {
+  if (S.spesa.week === S.plan.week) return S.spesa;
+  return { week: S.plan.week, checked: {}, extra: (S.spesa.extra || []).filter(x => !x.done) };
+}
+function shopping() {
+  const map = {};
+  for (const k of KEYS) {
+    const s = S.plan.slots[k]; if (!s || !s.id || s.id === FUORI) continue;
+    for (const id of [s.id, s.side, s.noFish]) {
+      const d = S.dishes[id]; if (!d) continue;
+      for (const ing of d.ing || []) {
+        const key = norm(ing); if (!key) continue;
+        const m = map[key] || (map[key] = { key, name: cap(key), group: REP_OF[key] || "Altro", n: 0, dishes: new Set() });
+        m.n++; m.dishes.add(d.name);
+      }
+    }
+  }
+  const groups = {};
+  for (const m of Object.values(map)) (groups[m.group] = groups[m.group] || []).push(m);
+  for (const g in groups) groups[g].sort((a,b) => a.name.localeCompare(b.name, "it"));
+  return groups;
+}
+
+/* ---------- render ---------- */
+function weekRange() { const a = parseISO(S.plan.week); return fmt(a) + " – " + fmt(addDays(a, 6)); }
+function renderHeader() {
+  $("#weekLabel").textContent = S.plan ? "Settimana " + weekRange() : "";
+  const m = $("#mode");
+  const msg = S.mode === "loading" ? "Caricamento del vostro menu…" : S.mode === "offline" ? "Senza connessione: le modifiche partono appena torna la rete." : "";
+  m.textContent = msg; m.hidden = !msg;
+  for (const b of document.querySelectorAll("[data-tab]")) b.setAttribute("aria-selected", String(b.dataset.tab === S.tab));
+  for (const t of ["menu","spesa","piatti"]) $("#p-" + t).hidden = S.tab !== t;
+}
+function dishLabel(id) { if (id === FUORI) return "Fuori casa / avanzi"; return S.dishes[id]?.name || "—"; }
+function renderMenu() {
+  if (!S.plan) { $("#days").innerHTML = ""; return; }
+  $("#novSeg").innerHTML = [0,1,2,3].map(n => `<button data-nov="${n}" aria-pressed="${S.plan.novita === n}">${n}</button>`).join("");
+  $("#veloce").checked = S.plan.veloce !== false;
+  $("#balance").innerHTML = balance().map(([l, v, goal, st]) => `<li style="--st:var(--${st === "ok" ? "ok" : st === "poco" ? "warn" : "bad"})"><span class="bl">${l}</span><span class="bn">${v}<small>${st === "ok" ? "ok" : st}</small></span><span class="bt">${goal}</span></li>`).join("");
+  const start = parseISO(S.plan.week), todayISO = iso(new Date());
+  let todayIdx = -1, html = "";
+  for (let d = 0; d < 7; d++) {
+    const date = addDays(start, d), isToday = iso(date) === todayISO; if (isToday) todayIdx = d;
+    const meal = (k, lbl) => {
+      const s = S.plan.slots[k] || {}; const dish = S.dishes[s.id];
+      const side = s.side && S.dishes[s.side] ? `<span class="side">+ ${esc(S.dishes[s.side].name)}</span>` : "";
+      const info = dish ? [dish.min ? dish.min + " min" : "", dish.cottura || ""].filter(Boolean).join(" · ") : "";
+      const nf = s.noFish && S.dishes[s.noFish] ? `<span class="nofish">Per chi non mangia pesce: ${esc(S.dishes[s.noFish].name)}</span>` : "";
+      const alts = alternatives(k);
+      return `<div class="meal-wrap"><button class="meal" data-open="${k}" aria-label="${DAYS[d]}, ${lbl}: ${esc(dishLabel(s.id))}">
+        <span class="label">${lbl}${info ? ` · <span class="cook">${info}</span>` : ""}</span>
+        <span class="hand ${s.id === FUORI ? "fuori" : ""}">${esc(dishLabel(s.id))}${side}</span>
+        ${nf}
+        <span class="meta">${dish && !dish.abit ? `<span class="new">Novità</span>` : ""}${dish ? tagHTML(dish.tag) : ""}${s.lock ? lockSVG : ""}</span>
+      </button>${alts.length ? `<div class="alts"><span class="alts-l">oppure</span>${alts.map(a => `<button class="alt" data-swap="${k}" data-id="${a.id}" aria-label="Sostituisci con ${esc(a.name)}">${esc(a.name)}${a.min ? ` <small>${a.min}'</small>` : ""}</button>`).join("")}</div>` : ""}</div>`;
+    };
+    html += `<li class="day${isToday ? " today" : ""}"><div class="dlabel"><span class="dname">${DSHORT[d]}</span><span class="dnum">${date.getDate()} ${MESI[date.getMonth()]}</span></div>
+      <div class="meals">${meal(d + "p", "Pranzo")}${meal(d + "c", "Cena")}</div></li>`;
+  }
+  $("#days").innerHTML = html;
+  const preps = {};
+  for (const k of KEYS) { const s = S.plan.slots[k]; if (!s) continue;
+    for (const id of [s.id, s.side]) { const d = S.dishes[id]; if (d && d.prep && PREP[d.prep]) { const g = (preps[d.prep] = preps[d.prep] || {}); (g[d.name] = g[d.name] || []).push(DSHORT[+k[0]].toLowerCase()); } } }
+  const pk = Object.keys(preps);
+  $("#prepBox").innerHTML = pk.length ? `<div class="paper prep-card"><span class="label">Da preparare la domenica</span><ul>${pk.map(p => `<li><b>${PREP[p][0]}</b>: ${PREP[p][1]}. <span class="hint">Serve per ${esc(Object.entries(preps[p]).map(([n, ds]) => n + " (" + ds.join(", ") + ")").join(", "))}.</span></li>`).join("")}</ul><p class="hint">I legumi cotti si tengono 3 giorni in frigo nella loro acqua; la parte per fine settimana va in freezer.</p></div>` : "";
+  const tb = $("#todayBox");
+  if (todayIdx >= 0) {
+    const p = S.plan.slots[todayIdx + "p"], c = S.plan.slots[todayIdx + "c"];
+    tb.innerHTML = `<div class="paper today-card"><span class="label">Oggi, ${DAYS[todayIdx].toLowerCase()}</span>
+      <p><span class="hand">${esc(dishLabel(p?.id))}${p?.side && S.dishes[p.side] ? " + " + esc(S.dishes[p.side].name) : ""}</span> <span class="hint">a pranzo</span></p>
+      <p><span class="hand">${esc(dishLabel(c?.id))}${c?.side && S.dishes[c.side] ? " + " + esc(S.dishes[c.side].name) : ""}</span> <span class="hint">a cena</span></p></div>`;
+  } else tb.innerHTML = `<div class="paper today-card"><span class="label">Prossima settimana</span><p class="hint">Il menu parte ${DAYS[0].toLowerCase()} ${fmt(start)}. Sistemalo e poi manda la spesa dalla scheda Spesa.</p></div>`;
+}
+function renderSpesa() {
+  if (!S.plan) return;
+  const sp = currentSpesa(), groups = shopping();
+  let total = 0, got = 0, html = "";
+  for (const g of GROUPS) {
+    const items = groups[g]; if (!items) continue;
+    const note = g === "Dispensa" ? "spunta se c'è già" : "";
+    html += `<section class="group"><h3>${g}<small>${note}</small></h3><ul class="items">` + items.map(m => {
+      const on = !!sp.checked[m.key]; total++; if (on) got++;
+      const cid = "ck-" + m.key.replace(/[^a-z0-9]+/g, "-");
+      const meals = m.n > 1 ? `${m.n} pasti · ` : "";
+      return `<li class="${on ? "done" : ""}"><label for="${cid}"><input type="checkbox" id="${cid}" data-ck="${esc(m.key)}" ${on ? "checked" : ""}><span><span class="iname">${esc(m.name)}</span><span class="ifor">${meals}${esc([...m.dishes].join(", "))}</span></span></label></li>`;
+    }).join("") + `</ul></section>`;
+  }
+  if (sp.extra && sp.extra.length) {
+    html += `<section class="group"><h3>Aggiunte a mano</h3><ul class="items">` + sp.extra.map(x => {
+      total++; if (x.done) got++;
+      return `<li class="${x.done ? "done" : ""}"><label for="ex-${x.id}"><input type="checkbox" id="ex-${x.id}" data-ex="${x.id}" ${x.done ? "checked" : ""}><span class="iname">${esc(x.t)}</span></label><button class="x" data-delx="${x.id}" aria-label="Togli ${esc(x.t)}">Togli</button></li>`;
+    }).join("") + `</ul></section>`;
+  }
+  $("#groups").innerHTML = html || `<p class="hint" style="padding:14px">Nessun ingrediente: tutti i pasti sono fuori casa.</p>`;
+  $("#spesaCount").innerHTML = `<b>${total - got}</b> da prendere <span class="hint">· ${got} a posto</span>`;
+}
+function spesaText() {
+  const sp = currentSpesa(), groups = shopping();
+  let out = `Spesa settimana ${weekRange()}\n`;
+  for (const g of GROUPS) {
+    const items = (groups[g] || []).filter(m => !sp.checked[m.key]); if (!items.length) continue;
+    out += `\n*${g === "Dispensa" ? "Dispensa (se manca)" : g}*\n` + items.map(m => `- ${m.name}${m.n > 1 && g !== "Dispensa" ? ` (per ${m.n} pasti)` : ""}`).join("\n") + "\n";
+  }
+  const ex = (sp.extra || []).filter(x => !x.done);
+  if (ex.length) out += `\n*Altro*\n` + ex.map(x => `- ${x.t}`).join("\n") + "\n";
+  return out.trim();
+}
+function renderPiatti() {
+  const f = [["primo","Primi"],["secondo","Secondi"],["contorno","Contorni"],["off","Esclusi"]];
+  $("#filters").innerHTML = f.map(([v,l]) => {
+    const n = Object.values(S.dishes).filter(d => v === "off" ? d.off : (!d.off && d.cat === v)).length;
+    return `<button class="chip" data-filter="${v}" aria-pressed="${S.filter === v}">${l} · ${n}</button>`;
+  }).join("");
+  const list = Object.values(S.dishes).filter(d => S.filter === "off" ? d.off : (!d.off && d.cat === S.filter))
+    .sort((a,b) => (b.abit - a.abit) || a.name.localeCompare(b.name, "it"));
+  $("#dlist").innerHTML = list.map(d => `<li class="drow"><div><span class="hand">${esc(d.name)}</span><span class="ings">${d.min ? `<span class="cook">${d.min} min${d.cottura ? " · " + d.cottura : ""}</span> · ` : ""}${esc((d.ing || []).join(", "))}</span></div>
+    <div class="dacts">${tagHTML(d.tag)}
+      ${d.off ? "" : `<button class="status ${d.abit ? "abit" : "prova"}" data-abit="${d.id}" title="Cambia stato">${d.abit ? "Abituale" : "Da provare"}</button>`}
+      <button class="btn quiet small" data-off="${d.id}">${d.off ? "Rimetti" : "Escludi"}</button>
+      ${d.custom && d.off ? `<button class="btn quiet small" data-del="${d.id}">Elimina</button>` : ""}
+    </div></li>`).join("") || `<li class="drow"><span class="hint">Nessun piatto qui.</span></li>`;
+}
+function renderSheet() {
+  const el = $("#sheet");
+  if (!S.sheet) { el.hidden = true; return; }
+  const k = S.sheet, day = +k[0], kind = k[1], s = S.plan.slots[k] || {}, dish = S.dishes[s.id];
+  const q = norm(S.q);
+  const list = candidates(kind).filter(d => d.id !== s.id && (!q || norm(d.name).includes(q)))
+    .sort((a,b) => (b.abit - a.abit) || a.name.localeCompare(b.name, "it"));
+  const sd = S.dishes[s.side];
+  const how = [dish && dish.come ? `<p class="how"><b>${esc(dish.name)}${dish.min ? " · " + dish.min + " min" : ""}.</b> ${esc(dish.come)}</p>` : "",
+    sd && sd.come && !(dish && dish.side) ? `<p class="how"><b>${esc(sd.name)}${sd.min ? " · " + sd.min + " min" : ""}.</b> ${esc(sd.come)}</p>` : ""].join("");
+  const nfChips = dish && dish.tag === "pesce"
+    ? `<div><span class="label">Per chi non mangia pesce</span><div class="chips" style="margin-top:6px">${[...new Set([s.noFish, ...noFishOptions(k).map(x => x.id)])].filter(id => id && S.dishes[id]).map(id => `<button class="chip" data-nofish="${id}" aria-pressed="${s.noFish === id}">${esc(S.dishes[id].name)}</button>`).join("")}<button class="chip" data-nofish="" aria-pressed="${!s.noFish}">Nessuno</button></div></div>` : "";
+  const sideChips = s.id !== FUORI && !(dish && dish.side)
+    ? `<div><span class="label">Contorno</span><div class="chips" style="margin-top:6px">${candidates("s").map(c => `<button class="chip" data-side="${c.id}" aria-pressed="${s.side === c.id}">${esc(c.name)}</button>`).join("")}<button class="chip" data-side="" aria-pressed="${!s.side}">Nessuno</button></div></div>` : "";
+  $("#sheetBody").innerHTML = `
+    <div class="row between"><h2 id="sheetTitle" style="font-size:18px">${DAYS[day]} · ${kind === "p" ? "Pranzo" : "Cena"}</h2><button class="btn quiet small" data-act="close">Chiudi</button></div>
+    <div class="hand current">${esc(dishLabel(s.id))}${sd && !(dish && dish.side) ? `<span class="side">+ ${esc(sd.name)}</span>` : ""}</div>
+    ${how}
+    <div class="row">
+      <button class="btn primary small" data-act="reroll">Cambia a caso</button>
+      <button class="btn small" data-act="lock">${s.lock ? "Sblocca" : "Blocca"}</button>
+      <button class="btn quiet small" data-act="fuori">Fuori casa / avanzi</button>
+    </div>
+    ${sideChips}
+    ${nfChips}
+    <div><label class="label" for="sheet-q">Oppure scegli</label>
+      <input type="text" id="sheet-q" placeholder="Cerca un piatto" value="${esc(S.q)}" autocomplete="off" style="margin-top:6px"></div>
+    <ul class="opts" id="opts">${list.map(d => `<li><button data-pick="${d.id}"><span class="hand">${esc(d.name)}</span><span class="meta">${d.min ? `<span class="cook">${d.min}'</span>` : ""}${d.abit ? "" : `<span class="new">Novità</span>`}${tagHTML(d.tag)}</span></button></li>`).join("") || `<li class="hint">Nessun piatto trovato.</li>`}</ul>`;
+  el.hidden = false;
+}
+function renderAll() { renderHeader(); renderMenu(); renderSpesa(); renderPiatti(); renderSheet(); }
+
+/* ---------- actions ---------- */
+function setSlot(k, slot) { S.plan = { ...S.plan, slots: { ...S.plan.slots, [k]: slot } }; savePlan(); }
+function reroll(k) {
+  const s = S.plan.slots[k] || {}, day = +k[0], kind = k[1];
+  const counts = countsExcept(k);
+  const id = pickDish(kind, null, day, false, S.plan.slots, counts, new Set(S.plan.prev || []), s.id, S.plan.veloce !== false);
+  if (!id) return;
+  setSlot(k, makeSlot(k, id, s));
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) { if (e.target.id === "sheet") { S.sheet = null; renderSheet(); } return; }
+  const ds = b.dataset;
+  if (ds.tab) { S.tab = ds.tab; renderHeader(); window.scrollTo({ top: 0 }); return; }
+  if (ds.open) { S.sheet = ds.open; S.q = ""; renderSheet(); return; }
+  if (ds.nov !== undefined) { S.plan = { ...S.plan, novita: +ds.nov }; savePlan(); renderMenu(); return; }
+  if (ds.filter) { S.filter = ds.filter; renderPiatti(); return; }
+  if (ds.pick) { const k = S.sheet; setSlot(k, makeSlot(k, ds.pick, S.plan.slots[k])); S.sheet = null; renderAll(); return; }
+  if (ds.swap) { const k = ds.swap, name = S.dishes[ds.id]?.name; setSlot(k, makeSlot(k, ds.id, S.plan.slots[k])); renderAll(); toast("Cambiato: " + name); return; }
+  if (ds.nofish !== undefined) { const k = S.sheet; setSlot(k, { ...S.plan.slots[k], noFish: ds.nofish || null }); renderAll(); return; }
+  if (ds.side !== undefined) { const k = S.sheet; setSlot(k, { ...S.plan.slots[k], side: ds.side || null }); renderAll(); return; }
+  if (ds.ck === undefined && ds.delx) { const sp = currentSpesa(); S.spesa = { ...sp, extra: sp.extra.filter(x => x.id !== ds.delx) }; saveSpesa(); renderSpesa(); return; }
+  if (ds.abit) { const d = S.dishes[ds.abit]; saveDish({ ...d, abit: !d.abit }); renderAll(); return; }
+  if (ds.off) { const d = S.dishes[ds.off]; saveDish({ ...d, off: !d.off }); renderAll(); return; }
+  if (ds.del) { delete S.dishes[ds.del]; removeDoc("piatti/" + ds.del); renderAll(); return; }
+  switch (ds.act) {
+    case "close": S.sheet = null; renderSheet(); break;
+    case "reroll": reroll(S.sheet); renderAll(); break;
+    case "lock": { const k = S.sheet; setSlot(k, { ...S.plan.slots[k], lock: !S.plan.slots[k]?.lock }); renderAll(); break; }
+    case "fuori": setSlot(S.sheet, { id: FUORI, lock: !!S.plan.slots[S.sheet]?.lock }); S.sheet = null; renderAll(); break;
+    case "shuffle": S.plan = generate(S.plan.week, S.plan.novita, S.plan.prev, S.plan.slots, S.plan.veloce !== false); savePlan(); renderAll(); toast("Menu rimescolato"); break;
+    case "newweek": {
+      let next = addDays(parseISO(S.plan.week), 7); const m = mondayFor(new Date()); if (next < m) next = m;
+      S.plan = generate(iso(next), S.plan.novita, slotIds(S.plan), null, S.plan.veloce !== false); savePlan(); renderAll(); toast("Settimana del " + fmt(next) + " pronta"); break;
+    }
+    case "copy": {
+      const text = spesaText();
+      const fallback = () => { $("#sheetBody").innerHTML = `<div class="row between"><h2 id="sheetTitle" style="font-size:18px">Copia la lista</h2><button class="btn quiet small" data-act="close">Chiudi</button></div><p class="hint">Tieni premuto sul testo, seleziona tutto e copia.</p><textarea class="copybox" id="copybox" readonly>${esc(text)}</textarea>`; S.sheet = null; $("#sheet").hidden = false; const t = $("#copybox"); t.focus(); t.select(); };
+      try { navigator.clipboard.writeText(text).then(() => toast("Lista copiata: incollala su WhatsApp"), fallback); } catch (err) { fallback(); }
+      break;
+    }
+  }
+});
+document.addEventListener("change", e => {
+  const t = e.target;
+  if (t.dataset.ck !== undefined) { const sp = currentSpesa(); S.spesa = { ...sp, checked: { ...sp.checked, [t.dataset.ck]: t.checked } }; if (!t.checked) delete S.spesa.checked[t.dataset.ck]; saveSpesa(); renderSpesa(); }
+  if (t.id === "veloce") { S.plan = { ...S.plan, veloce: t.checked }; savePlan(); toast(t.checked ? "Vale da ora: premi Rimescola per applicarlo" : "Tempi liberi: premi Rimescola per applicarlo"); }
+  if (t.dataset.ex) { const sp = currentSpesa(); S.spesa = { ...sp, extra: sp.extra.map(x => x.id === t.dataset.ex ? { ...x, done: t.checked } : x) }; saveSpesa(); renderSpesa(); }
+});
+document.addEventListener("input", e => { if (e.target.id === "sheet-q") { S.q = e.target.value; const pos = e.target.selectionStart; renderSheet(); const i = $("#sheet-q"); i.focus(); i.setSelectionRange(pos, pos); } });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#sheet").hidden) { S.sheet = null; $("#sheet").hidden = true; } });
+$("#addExtra").addEventListener("submit", e => {
+  e.preventDefault(); const v = $("#extraInput").value.trim(); if (!v) return;
+  const sp = currentSpesa(); S.spesa = { ...sp, extra: [...(sp.extra || []), { id: Date.now().toString(36), t: v, done: false }] };
+  $("#extraInput").value = ""; saveSpesa(); renderSpesa();
+});
+$("#addDish").addEventListener("submit", e => {
+  e.preventDefault(); const name = $("#f-name").value.trim(); if (!name) return;
+  const id = norm(name).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) + "-" + Date.now().toString(36).slice(-4);
+  const d = { id, name, cat: $("#f-cat").value, tag: $("#f-tag").value, abit: $("#f-abit").checked, custom: true,
+    ing: $("#f-ing").value.split(",").map(norm).filter(Boolean) };
+  const mn = parseInt($("#f-min").value, 10); if (mn > 0) d.min = mn;
+  if ($("#f-cottura").value) d.cottura = $("#f-cottura").value;
+  if ($("#f-come").value.trim()) d.come = $("#f-come").value.trim();
+  if (d.cat === "contorno") d.tag = "veg";
+  saveDish(d); e.target.reset(); $("#addBox").open = false; S.filter = d.cat; renderAll(); toast(name + " aggiunto");
+});
+
+/* ---------- boot ---------- */
+function seedMap() { const m = {}; for (const d of SEED) m[d.id] = { ...d }; return m; }
+function freshPlan() { return generate(iso(mondayFor(new Date())), 2, [], null, true); }
+function renderSoft() {
+  renderHeader(); renderMenu(); renderSpesa(); renderPiatti();
+  if (S.sheet && document.activeElement && document.activeElement.id !== "sheet-q") renderSheet();
+}
+function apply(res) {
+  VERSION = res.v;
+  if (res.piatti && Object.keys(res.piatti).length) S.dishes = res.piatti;
+  if (res.spesa) S.spesa = res.spesa;
+  const wasLoading = S.mode !== "online";
+  S.mode = "online";
+  if (res.menu && res.menu.slots) S.plan = res.menu;
+  else { S.plan = freshPlan(); savePlan(); }
+  cacheState();
+  wasLoading ? renderAll() : renderSoft();
+}
+let refreshing = false;
+async function refresh(force) {
+  if (S.mode === "locked" || !CODE || refreshing || anyPending()) return;
+  refreshing = true;
+  try {
+    const res = await api("GET", null, VERSION && !force ? "?v=" + VERSION : "");
+    if (res.unchanged) setOnline(true);
+    else if (!anyPending()) apply(res);
+  } catch (e) {
+    if (e.code === "code") lock("Codice non valido: inseriscilo di nuovo.");
+    else if (e.code === "setup") lock("Il sito non è ancora configurato: manca il codice di famiglia (FAMILY_PIN) nelle impostazioni di Netlify.");
+    else setOnline(false);
+  } finally { refreshing = false; }
+}
+function lock(msg) {
+  S.mode = "locked"; CODE = ""; lsSet("csm:code", null);
+  $("#gateMsg").textContent = msg || "";
+  $("#gate").hidden = false; renderHeader();
+  setTimeout(() => $("#gateCode").focus(), 50);
+}
+$("#gateForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const v = $("#gateCode").value.trim(); if (!v) return;
+  const btn = $("#gateBtn"); btn.disabled = true; $("#gateMsg").textContent = "Controllo…";
+  CODE = v;
+  try {
+    const res = await api("GET");
+    lsSet("csm:code", v); $("#gate").hidden = true; $("#gateCode").value = ""; $("#gateMsg").textContent = "";
+    S.mode = "loading"; apply(res);
+  } catch (err) {
+    CODE = "";
+    $("#gateMsg").textContent = err.code === "code" ? "Codice sbagliato. Riprova."
+      : err.code === "setup" ? "Il sito non è ancora configurato: manca FAMILY_PIN su Netlify."
+      : "Non riesco a collegarmi. Controlla la connessione e riprova.";
+  } finally { btn.disabled = false; }
+});
+document.addEventListener("click", e => { if (e.target.closest("[data-act='logout']")) lock("Inserisci il codice di famiglia."); });
+
+$("#f-tag").innerHTML = Object.entries(TAGS).map(([k,v]) => `<option value="${k}">${v}</option>`).join("");
+(() => {
+  let cached = null; try { cached = JSON.parse(lsGet("csm:cache") || "null"); } catch (e) {}
+  if (cached && cached.plan && cached.dishes) { S.dishes = cached.dishes; S.plan = cached.plan; S.spesa = cached.spesa || S.spesa; }
+  else { S.dishes = seedMap(); S.plan = freshPlan(); }
+  renderAll();
+  if (!CODE) lock(""); else refresh(true);
+  setInterval(() => { if (document.visibilityState === "visible") refresh(); }, 10000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") refresh(); });
+  window.addEventListener("online", () => refresh());
+})();
+</script>
+</body>
+</html>
